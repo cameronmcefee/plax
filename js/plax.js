@@ -21,7 +21,7 @@
   WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-(function($){
+(function ($) {
 
   var layers    = [],
       docWidth  = $(window).width(),
@@ -31,58 +31,69 @@
       docWidth  = $(window).width()
       docHeight = $(window).height()
   })
-    
+
   // Public Methods
-
-  // Add an object to the list of things to parallax
   $.fn.plaxify = function (params){
-    var layer    = {"xRange":0,"yRange":0,"invert":false},
-        position = this.position()
 
-    for(var param in params){
-      if(layer[param]==0){
-        layer[param] = params[param]
+    return this.each(function () {
+
+      var layer = {"xRange":0,"yRange":0,"invert":false}
+      for (var param in params) {
+        if (layer[param] == 0) {
+          layer[param] = params[param]
+        }
       }
-    }
-    layer.obj    = this
-    layer.startX = position.left
-    layer.startY = position.top
+      // Add an object to the list of things to parallax
+      layer.obj    = $(this)
+      layer.startX = this.offsetLeft
+      layer.startY = this.offsetTop
 
-    if(layer.invert == false){
-      layer.startX -= Math.floor(layer.xRange/2)
-      layer.startY -= Math.floor(layer.yRange/2)
-    } else {
-      layer.startX += Math.floor(layer.xRange/2)
-      layer.startY += Math.floor(layer.yRange/2)
-    }
-    layers.push(layer)
+      if(layer.invert == false){
+        layer.startX -= Math.floor(layer.xRange/2)
+        layer.startY -= Math.floor(layer.yRange/2)
+      } else {
+        layer.startX += Math.floor(layer.xRange/2)
+        layer.startY += Math.floor(layer.yRange/2)
+      }
+      layers.push(layer)
+    })
   }
 
-  
+
   $.plax = {
     listLayers: function(){
       console.log(layers)
     },
     enable: function(){
-      $(document).mousemove(function(e){
+      $(document).bind('mousemove.plax', function (e) {
         var x      = e.pageX,
             y      = e.pageY,
             hRatio = Math.round((x/docWidth)*100)/100,
-            vRatio = Math.round((y/docHeight)*100)/100
-        $.each(layers, function(index,layer) {
-          if(layer.invert != true){
+            vRatio = Math.round((y/docHeight)*100)/100,
+            layer, i
+
+        for (i = layers.length; i--;) {
+          layer = layers[i];
+          if (layer.invert != true) {
             layer.obj.css('left',layer.startX + (layer.xRange*hRatio))
             layer.obj.css('top', layer.startY + (layer.yRange*vRatio))
           } else {
             layer.obj.css('left',layer.startX - (layer.xRange*hRatio))
             layer.obj.css('top', layer.startY - (layer.yRange*vRatio))
           }
-        })
+        }
+
       })
     },
     disable: function(){
-      clearTimeout(timer)
+      $(document).unbind('mousemove.plax')
     }
   }
 
-})(jQuery);
+  if (typeof ender !== 'undefined') {
+    $.ender($.fn, true)
+  }
+
+})(function () {
+  return typeof jQuery !== 'undefined' ? jQuery : ender
+}())

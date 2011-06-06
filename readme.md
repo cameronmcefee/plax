@@ -1,4 +1,4 @@
-Plax is a jQuery plugin that makes it suuuuuper easy to parallax elements in your site based on mouse position. You can see it implemented in many places throughout GitHub, including the [404 page](http://www.github.com/404), the [500 page](http://www.github.com/500), and the [about page](http://www.github.com/about).
+Plax is a [jQuery](http://jquery.com) / [Ender](http://ender.no.de) plugin that makes it suuuuuper easy to parallax elements in your site based on mouse position. You can see it implemented in many places throughout GitHub, including the [404 page](http://www.github.com/404), the [500 page](http://www.github.com/500), and the [about page](http://www.github.com/about).
 
 
 ## Dependencies
@@ -14,18 +14,17 @@ In the &lt;head&gt; of your document, link both jQuery and plax.
 
 ```html
 <script type="text/javascript" src="/js/jquery.min.js"></script>
+<!-- <script type="text/javascript" src="/js/ender.min.js"></script> -->
 <script type="text/javascript" src="/js/plax.js"></script>
 ```
 
 Then in your javascript, add each "layer" to the list of layers to be parallaxed. Once that's done, enable Plax and you're good to go.
 
 ```javascript
-$(document).ready(function () {
-  $('#plax-octocat').plaxify({"xRange":40,"yRange":40})
-  $('#plax-earth').plaxify({"xRange":20,"yRange":20,"invert":true})
-  $('#plax-bg').plaxify({"xRange":10,"yRange":10,"invert":true})
-  $.plax.enable()
-})
+$('#plax-octocat').plaxify({"xRange":40,"yRange":40})
+$('#plax-earth').plaxify({"xRange":20,"yRange":20,"invert":true})
+$('#plax-bg').plaxify({"xRange":10,"yRange":10,"invert":true})
+$.plax.enable()
 ```
 
 

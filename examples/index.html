@@ -3,8 +3,9 @@
   <head>
     <title>Plax Example</title>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/plax.js"></script>
+    <!-- <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script> -->
 
+    <script type="text/javascript" src="../js/plax.js"></script>
     <style type="text/css">
       * {
         margin: 0px;
@@ -49,15 +50,6 @@
         z-index: 1;
       }
     </style>
-    <script type="text/javascript">
-      $(document).ready(function () {
-        $('#plax-sphere-1').plaxify({"xRange":40,"yRange":40})
-        $('#plax-logo').plaxify({"xRange":20,"yRange":20})
-        $('#plax-sphere-2').plaxify({"xRange":10,"yRange":10})
-        $('#plax-sphere-3').plaxify({"xRange":40,"yRange":40,"invert":true})
-        $.plax.enable()
-      })
-    </script>
   </head>
   <body>
     <div id="shell">
@@ -66,5 +58,13 @@
       <img src="img/plax_sphere_large.png" width="215" height="215" id="plax-sphere-2"/>
       <img src="img/plax_sphere_small.png" width="93" height="92" id="plax-sphere-3"/>
     </div>
+
+    <script type="text/javascript">
+      $('#plax-sphere-1').plaxify({"xRange":40,"yRange":40})
+      $('#plax-logo').plaxify({"xRange":20,"yRange":20})
+      $('#plax-sphere-2').plaxify({"xRange":10,"yRange":10})
+      $('#plax-sphere-3').plaxify({"xRange":40,"yRange":40,"invert":true})
+      $.plax.enable()
+    </script>
   </body>
 </html>
