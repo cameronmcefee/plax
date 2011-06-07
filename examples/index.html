@@ -50,6 +50,16 @@
         z-index: 1;
       }
     </style>
+    <script type="text/javascript">
+      $(document).ready(function () {        
+        $('#plax-sphere-1').plaxify({"xRange":40,"yRange":40})
+        $('#plax-logo').plaxify({"xRange":20,"yRange":20})
+        $('#plax-sphere-2').plaxify({"xRange":10,"yRange":10})
+        $('#plax-sphere-3').plaxify({"xRange":40,"yRange":40,"invert":true})
+        $.plax.enable()
+      })
+    </script>
+    
   </head>
   <body>
     <div id="shell">
@@ -58,13 +68,5 @@
       <img src="img/plax_sphere_large.png" width="215" height="215" id="plax-sphere-2"/>
       <img src="img/plax_sphere_small.png" width="93" height="92" id="plax-sphere-3"/>
     </div>
-
-    <script type="text/javascript">
-      $('#plax-sphere-1').plaxify({"xRange":40,"yRange":40})
-      $('#plax-logo').plaxify({"xRange":20,"yRange":20})
-      $('#plax-sphere-2').plaxify({"xRange":10,"yRange":10})
-      $('#plax-sphere-3').plaxify({"xRange":40,"yRange":40,"invert":true})
-      $.plax.enable()
-    </script>
   </body>
 </html>
