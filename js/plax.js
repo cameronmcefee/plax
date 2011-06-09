@@ -49,39 +49,44 @@
     layer.startY = position.top
 
     if(layer.invert == false){
-      layer.startX -= Math.floor(layer.xRange/2)
-      layer.startY -= Math.floor(layer.yRange/2)
+      layer.startX -= Math.floor(layer.xRange / 2)
+      layer.startY -= Math.floor(layer.yRange / 2)
     } else {
-      layer.startX += Math.floor(layer.xRange/2)
-      layer.startY += Math.floor(layer.yRange/2)
+      layer.startX += Math.floor(layer.xRange / 2)
+      layer.startY += Math.floor(layer.yRange / 2)
     }
-    layers.push(layer)
+    layers.push(layer);
   }
+
+  function plaxifier() {
+    var x      = e.pageX,
+        y      = e.pageY,
+        hRatio = Math.round((x/docWidth)  * 100) / 100,
+        vRatio = Math.round((y/docHeight) * 100) / 100;
+    
+    $.each(layers, function(index,layer) {
+      if(!layer.invert){
+        layer.obj
+          .css('left', layer.startX + (layer.xRange * hRatio))
+          .css('top',  layer.startY + (layer.yRange * vRatio));
+      } else {
+        layer.obj
+          .css('left', layer.startX - (layer.xRange * hRatio))
+          .css('top',  layer.startY - (layer.yRange * vRatio));
+      }
+    }
+  });
 
   
   $.plax = {
     listLayers: function(){
-      console.log(layers)
+      console.log(layers);
     },
     enable: function(){
-      $(document).mousemove(function(e){
-        var x      = e.pageX,
-            y      = e.pageY,
-            hRatio = Math.round((x/docWidth)*100)/100,
-            vRatio = Math.round((y/docHeight)*100)/100
-        $.each(layers, function(index,layer) {
-          if(layer.invert != true){
-            layer.obj.css('left',layer.startX + (layer.xRange*hRatio))
-            layer.obj.css('top', layer.startY + (layer.yRange*vRatio))
-          } else {
-            layer.obj.css('left',layer.startX - (layer.xRange*hRatio))
-            layer.obj.css('top', layer.startY - (layer.yRange*vRatio))
-          }
-        })
-      })
+      $(document).mousemove(plaxifier);
     },
     disable: function(){
-      clearTimeout(timer)
+      $(document).unbind('mousemove', plaxifier);
     }
   }
 
