@@ -80,9 +80,6 @@
   }
 
   $.plax = {
-    listLayers: function(){
-      console.log(layers)
-    },
     enable: function(){
       $(document).bind('mousemove.plax', function (e) {
         plaxifier(e)
