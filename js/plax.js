@@ -43,6 +43,7 @@
           layer[param] = params[param]
         }
       }
+
       // Add an object to the list of things to parallax
       layer.obj    = $(this)
       layer.startX = this.offsetLeft
@@ -59,6 +60,24 @@
     })
   }
 
+  function plaxifier(e) {
+    var x      = e.pageX,
+        y      = e.pageY,
+        hRatio = Math.round((x/docWidth)*100)/100,
+        vRatio = Math.round((y/docHeight)*100)/100,
+        layer, i
+    
+    for (i = layers.length; i--;) {
+      layer = layers[i]
+      if (layer.invert != true) {
+        layer.obj.css('left',layer.startX + (layer.xRange*hRatio))
+        layer.obj.css('top', layer.startY + (layer.yRange*vRatio))
+      } else {
+        layer.obj.css('left',layer.startX - (layer.xRange*hRatio))
+        layer.obj.css('top', layer.startY - (layer.yRange*vRatio))
+      }
+    }
+  }
 
   $.plax = {
     listLayers: function(){
@@ -66,23 +85,7 @@
     },
     enable: function(){
       $(document).bind('mousemove.plax', function (e) {
-        var x      = e.pageX,
-            y      = e.pageY,
-            hRatio = Math.round((x/docWidth)*100)/100,
-            vRatio = Math.round((y/docHeight)*100)/100,
-            layer, i
-
-        for (i = layers.length; i--;) {
-          layer = layers[i];
-          if (layer.invert != true) {
-            layer.obj.css('left',layer.startX + (layer.xRange*hRatio))
-            layer.obj.css('top', layer.startY + (layer.yRange*vRatio))
-          } else {
-            layer.obj.css('left',layer.startX - (layer.xRange*hRatio))
-            layer.obj.css('top', layer.startY - (layer.yRange*vRatio))
-          }
-        }
-
+        plaxifier(e)
       })
     },
     disable: function(){
