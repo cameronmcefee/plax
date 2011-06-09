@@ -40,7 +40,9 @@ __Parameters__
 
 `yRange` &mdash; integer: is the distance across the y-axis the object will travel.
 
-`invert` &mdash; boolean: inverting will invert the direction the object will travel across each axis.
+`invert` &mdash; boolean: inverting will invert the direction the object will travel across each axis.*
+
+\* The same effect can be achieved by providing `xRange` and `yRange` with negative numbers, making it possible to invert only a single axis.
 
 ### enable()
 
