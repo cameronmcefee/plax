@@ -3,7 +3,7 @@ Plax is a [jQuery](http://jquery.com) / [Ender](http://ender.no.de) plugin that 
 
 ## Dependencies
 
-### [jQuery](http://jquery.com/) || [Ender](http://ender.no.de/) ###
+### [jQuery](http://jquery.com/) or [Ender](http://ender.no.de/) ###
 
 
 ## Usage
