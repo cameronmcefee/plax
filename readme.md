@@ -50,10 +50,6 @@ Enable parallaxing.
 
 Disable parallaxing.
 
-### listLayers()
-
-Print all of the objects currently in the list of parallaxing layers.
-
 
 ## Best Practices
 
