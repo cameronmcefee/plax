@@ -70,11 +70,13 @@
     for (i = layers.length; i--;) {
       layer = layers[i]
       if (layer.invert != true) {
-        layer.obj.css('left',layer.startX + (layer.xRange*hRatio))
-        layer.obj.css('top', layer.startY + (layer.yRange*vRatio))
+        layer.obj
+          .css('left',layer.startX + (layer.xRange*hRatio))
+          .css('top', layer.startY + (layer.yRange*vRatio))
       } else {
-        layer.obj.css('left',layer.startX - (layer.xRange*hRatio))
-        layer.obj.css('top', layer.startY - (layer.yRange*vRatio))
+        layer.obj
+          .css('left',layer.startX - (layer.xRange*hRatio))
+          .css('top', layer.startY - (layer.yRange*vRatio))
       }
     }
   }
