@@ -65,8 +65,8 @@
 
   function plaxifier(e) {
     if (new Date().getTime() < lastRender + delay) return;
-	lastRender = new Date().getTime();
-	
+      lastRender = new Date().getTime();
+
     var x      = e.pageX,
         y      = e.pageY,
         hRatio = x/docWidth,
