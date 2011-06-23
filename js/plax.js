@@ -77,12 +77,12 @@
       layer = layers[i]
       if (layer.invert != true) {
         layer.obj
-          .css('left',Math.round(layer.startX + (layer.xRange*hRatio)))
-          .css('top', Math.round(layer.startY + (layer.yRange*vRatio)))
+          .css('left',layer.startX + (layer.xRange*hRatio))
+          .css('top', layer.startY + (layer.yRange*vRatio))
       } else {
         layer.obj
-          .css('left',Math.round(layer.startX - (layer.xRange*hRatio)))
-          .css('top', Math.round(layer.startY - (layer.yRange*vRatio)))
+          .css('left',layer.startX - (layer.xRange*hRatio))
+          .css('top', layer.startY - (layer.yRange*vRatio))
       }
     }
   }
