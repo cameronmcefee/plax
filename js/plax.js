@@ -53,11 +53,11 @@
       layer.startY = this.offsetTop
 
       if(layer.invert == false){
-        layer.startX -= layer.xRange/2
-        layer.startY -= layer.yRange/2
+        layer.startX -= Math.floor(layer.xRange/2)
+        layer.startY -= Math.floor(layer.yRange/2)
       } else {
-        layer.startX += layer.xRange/2
-        layer.startY += layer.yRange/2
+        layer.startX += Math.floor(layer.xRange/2)
+        layer.startY += Math.floor(layer.yRange/2)
       }
       layers.push(layer)
     })
