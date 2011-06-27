@@ -23,6 +23,9 @@
 
 (function ($) {
 
+  var maxfps = 25;
+  var delay = 1 / maxfps * 1000 // delay in ms
+  var lastRender = new Date().getTime();
   var layers    = [],
       docWidth  = $(window).width(),
       docHeight = $(window).height()
@@ -61,10 +64,13 @@
   }
 
   function plaxifier(e) {
+    if (new Date().getTime() < lastRender + delay) return;
+      lastRender = new Date().getTime();
+
     var x      = e.pageX,
         y      = e.pageY,
-        hRatio = Math.round((x/docWidth)*100)/100,
-        vRatio = Math.round((y/docHeight)*100)/100,
+        hRatio = x/docWidth,
+        vRatio = y/docHeight,
         layer, i
     
     for (i = layers.length; i--;) {
