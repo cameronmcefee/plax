@@ -63,16 +63,21 @@
     })
   }
 
+  // Are we on a device with an accelerometer, or are we mouse-based?
+  function moveable(){
+    return window.DeviceMotionEvent != undefined
+  }
+
   function plaxifier(e) {
     if (new Date().getTime() < lastRender + delay) return;
       lastRender = new Date().getTime();
 
-    var x      = e.pageX,
-        y      = e.pageY,
-        hRatio = x/docWidth,
-        vRatio = y/docHeight,
+    var x      = moveable() ? e.rotationRate.beta : e.pageX,
+        y      = moveable() ? e.rotationRate.alpha  : e.pageY,
+        hRatio = x/(moveable() ? 90  : docWidth),
+        vRatio = y/(moveable() ? 180 : docHeight),
         layer, i
-    
+
     for (i = layers.length; i--;) {
       layer = layers[i]
       if (layer.invert != true) {
@@ -92,6 +97,13 @@
       $(document).bind('mousemove.plax', function (e) {
         plaxifier(e)
       })
+
+    if(moveable()){
+      window.ondevicemotion = function(e) {
+        plaxifier(e)
+      }
+    }
+
     },
     disable: function(){
       $(document).unbind('mousemove.plax')
