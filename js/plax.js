@@ -72,11 +72,24 @@
     if (new Date().getTime() < lastRender + delay) return;
       lastRender = new Date().getTime();
 
-    var x      = moveable() ? e.rotationRate.beta/3  : e.pageX,
-        y      = moveable() ? e.rotationRate.alpha/3 : e.pageY,
-        hRatio = x/(moveable() ? 360 : docWidth),
-        vRatio = y/(moveable() ? 360 : docHeight),
-        layer, i
+    var x = e.pageX,
+        y = e.pageY;
+
+    if(moveable()){
+      var i = (window.orientation +180) %360 / 90
+      // portrait(%2==0) or landscape
+      var accel= e.accelerationIncludingGravity;
+
+      var tmp_x = i%2==0 ? -accel.x :accel.y;
+      var tmp_y = i%2==0 ? accel.y :accel.x;
+      // facing up(>=2) or down
+      x = i>=2 ? tmp_x:-tmp_x;
+      y = i>=2 ? tmp_y:-tmp_y;
+    }
+
+    var hRatio = x/(moveable() ? 5 : docWidth),
+        vRatio = y/(moveable() ? 5 : docHeight),
+        layer, i;
 
     for (i = layers.length; i--;) {
       layer = layers[i]
@@ -99,14 +112,13 @@
       })
 
     if(moveable()){
-      window.ondevicemotion = function(e) {
-        plaxifier(e)
-      }
+      window.ondevicemotion = function(e){plaxifier(e)};
     }
 
     },
     disable: function(){
       $(document).unbind('mousemove.plax')
+      window.ondevicemotion = undefined;
     }
   }
 
