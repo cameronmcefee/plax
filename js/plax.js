@@ -79,11 +79,19 @@
     })
   }
 
-  // Are we on a device with an accelerometer, or are we mouse-based?
+
+  // Determine if the device has an accelerometer
+
   function moveable(){
     return window.DeviceMotionEvent != undefined
   }
 
+
+  // Determine if the device is actually moving. If it is, enable motion based parallaxing.
+  // Otherwise, use the mouse to parallax
+  //
+  // e - devicemotion event
+  
   function detectMotion(e){
     if (new Date().getTime() < lastRender + delay) return
 
@@ -125,6 +133,12 @@
     }
   }
 
+
+  // Move the elements in the `layers` array within their ranges, 
+  // based on mouse or motion input 
+  //
+  // e - mousemove or devicemotion event
+
   function plaxifier(e) {
     if (new Date().getTime() < lastRender + delay) return
       lastRender = new Date().getTime()
@@ -133,7 +147,8 @@
         y = e.pageY
         
     if(motionEnabled == true){
-      var i = window.orientation ? (window.orientation +180) %360 / 90 : 2, // portrait(%2==0) or landscape
+          // portrait(%2==0) or landscape
+      var i = window.orientation ? (window.orientation +180) %360 / 90 : 2,
           accel= e.accelerationIncludingGravity,
           tmp_x = i%2==0 ? -accel.x : accel.y,
           tmp_y = i%2==0 ? accel.y : accel.x
@@ -162,6 +177,7 @@
   }
 
   $.plax = {
+    // Activeate Plax
     enable: function(){
       $(document).bind('mousemove.plax', function (e) {
         plaxifier(e)
@@ -172,6 +188,7 @@
       }
 
     },
+    // Deactiveate Plax
     disable: function(){
       $(document).unbind('mousemove.plax')
       window.ondevicemotion = undefined
