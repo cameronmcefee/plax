@@ -23,16 +23,16 @@
 
 (function ($) {
 
-  var maxfps     = 25,
-      delay      = 1 / maxfps * 1000,
-      lastRender = new Date().getTime(),
-      layers     = [],
-      docWidth   = $(window).width(),
-      docHeight  = $(window).height(),
-      motionEnabled = false,
+  var maxfps          = 25,
+      delay           = 1 / maxfps * 1000,
+      lastRender      = new Date().getTime(),
+      layers          = [],
+      docWidth        = $(window).width(),
+      docHeight       = $(window).height(),
+      motionEnabled   = false,
       motionAllowance = .05,
       movementCycles  = 0,
-      motionData = {
+      motionData      = {
         "xArray"  : [0,0,0,0,0],
         "yArray"  : [0,0,0,0,0],
         "xMotion" : 0,
@@ -83,10 +83,10 @@
   function moveable(){
     return window.DeviceMotionEvent != undefined
   }
-  
+
   function detectMotion(e){
     if (new Date().getTime() < lastRender + delay) return
-    
+
     if(moveable()){
       var accel= e.accelerationIncludingGravity,
           x = accel.x,
@@ -99,16 +99,16 @@
       }
       motionData.xArray.push(x)
       motionData.yArray.push(y)
-      
+
       motionData.xMotion = Math.round((motionData.xArray.max() - motionData.xArray.min())*1000)/1000
       motionData.yMotion = Math.round((motionData.yArray.max() - motionData.yArray.min())*1000)/1000
-      
+
       if(motionData.xMotion > motionAllowance || motionData.yMotion > motionAllowance){
         movementCycles++;
       } else {
         movementCycles = 0;
       }
-      
+
       if(movementCycles >= 5){
         motionEnabled = true
         $(document).unbind('mousemove.plax')
