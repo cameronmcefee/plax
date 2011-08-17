@@ -133,18 +133,18 @@
         y = e.pageY
         
     if(motionEnabled == true){
-      var i = (window.orientation +180) %360 / 90, // portrait(%2==0) or landscape
+      var i = window.orientation ? (window.orientation +180) %360 / 90 : 2, // portrait(%2==0) or landscape
           accel= e.accelerationIncludingGravity,
           tmp_x = i%2==0 ? -accel.x : accel.y,
           tmp_y = i%2==0 ? accel.y : accel.x
-
       // facing up(>=2) or down
       x = i>=2 ? tmp_x : -tmp_x
       y = i>=2 ? tmp_y : -tmp_y
     }
 
-    var hRatio = x/((motionEnabled == true) ? 5 : docWidth),
-        vRatio = y/((motionEnabled == true) ? 5 : docHeight),
+    var strength = (motionEnabled == true && window.orientation) ? 5 : 2,
+        hRatio = x/((motionEnabled == true) ? strength : docWidth),
+        vRatio = y/((motionEnabled == true) ? strength : docHeight),
         layer, i
 
     for (i = layers.length; i--;) {
