@@ -28,7 +28,23 @@
       lastRender = new Date().getTime(),
       layers     = [],
       docWidth   = $(window).width(),
-      docHeight  = $(window).height()
+      docHeight  = $(window).height(),
+      motionEnabled = false,
+      motionAllowance = .05,
+      movementCycles  = 0,
+      motionData = {
+        "xArray"  : [0,0,0,0,0],
+        "yArray"  : [0,0,0,0,0],
+        "xMotion" : 0,
+        "yMotion" : 0
+      }
+      
+  Array.prototype.max = function(){
+    return Math.max.apply({},this)
+  }
+  Array.prototype.min = function(){
+    return Math.min.apply({},this)
+  }
 
   $(window).resize(function() {
       docWidth  = $(window).width()
@@ -67,6 +83,47 @@
   function moveable(){
     return window.DeviceMotionEvent != undefined
   }
+  
+  function detectMotion(e){
+    if (new Date().getTime() < lastRender + delay) return
+    
+    if(moveable()){
+      var accel= e.accelerationIncludingGravity,
+          x = accel.x,
+          y = accel.y
+      if(motionData.xArray.length >= 5){
+        motionData.xArray.shift()
+      }
+      if(motionData.yArray.length >= 5){
+        motionData.yArray.shift()
+      }
+      motionData.xArray.push(x)
+      motionData.yArray.push(y)
+      
+      motionData.xMotion = Math.round((motionData.xArray.max() - motionData.xArray.min())*1000)/1000
+      motionData.yMotion = Math.round((motionData.yArray.max() - motionData.yArray.min())*1000)/1000
+      
+      if(motionData.xMotion > motionAllowance || motionData.yMotion > motionAllowance){
+        movementCycles++;
+      } else {
+        movementCycles = 0;
+      }
+      
+      if(movementCycles >= 5){
+        motionEnabled = true
+        $(document).unbind('mousemove.plax')
+        //window.ondevicemotion = function(e){plaxifier(e)}
+
+        $(window).bind('devicemotion', plaxifier(e))
+      } else {
+        motionEnabled = false
+        $(window).unbind('devicemotion')
+        $(document).bind('mousemove.plax', function (e) {
+          plaxifier(e)
+        })
+      }
+    }
+  }
 
   function plaxifier(e) {
     if (new Date().getTime() < lastRender + delay) return
@@ -74,8 +131,8 @@
 
     var x = e.pageX,
         y = e.pageY
-
-    if(moveable()){
+        
+    if(motionEnabled == true){
       var i = (window.orientation +180) %360 / 90, // portrait(%2==0) or landscape
           accel= e.accelerationIncludingGravity,
           tmp_x = i%2==0 ? -accel.x : accel.y,
@@ -86,8 +143,8 @@
       y = i>=2 ? tmp_y : -tmp_y
     }
 
-    var hRatio = x/(moveable() ? 5 : docWidth),
-        vRatio = y/(moveable() ? 5 : docHeight),
+    var hRatio = x/((motionEnabled == true) ? 5 : docWidth),
+        vRatio = y/((motionEnabled == true) ? 5 : docHeight),
         layer, i
 
     for (i = layers.length; i--;) {
@@ -110,9 +167,9 @@
         plaxifier(e)
       })
 
-    if(moveable()){
-      window.ondevicemotion = function(e){plaxifier(e)};
-    }
+      if(moveable()){
+        window.ondevicemotion = function(e){detectMotion(e)}
+      }
 
     },
     disable: function(){
