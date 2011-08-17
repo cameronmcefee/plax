@@ -23,12 +23,12 @@
 
 (function ($) {
 
-  var maxfps = 25;
-  var delay = 1 / maxfps * 1000 // delay in ms
-  var lastRender = new Date().getTime();
-  var layers    = [],
-      docWidth  = $(window).width(),
-      docHeight = $(window).height()
+  var maxfps     = 25,
+      delay      = 1 / maxfps * 1000,
+      lastRender = new Date().getTime(),
+      layers     = [],
+      docWidth   = $(window).width(),
+      docHeight  = $(window).height()
 
   $(window).resize(function() {
       docWidth  = $(window).width()
@@ -69,27 +69,26 @@
   }
 
   function plaxifier(e) {
-    if (new Date().getTime() < lastRender + delay) return;
-      lastRender = new Date().getTime();
+    if (new Date().getTime() < lastRender + delay) return
+      lastRender = new Date().getTime()
 
     var x = e.pageX,
-        y = e.pageY;
+        y = e.pageY
 
     if(moveable()){
-      var i = (window.orientation +180) %360 / 90
-      // portrait(%2==0) or landscape
-      var accel= e.accelerationIncludingGravity;
+      var i = (window.orientation +180) %360 / 90, // portrait(%2==0) or landscape
+          accel= e.accelerationIncludingGravity,
+          tmp_x = i%2==0 ? -accel.x : accel.y,
+          tmp_y = i%2==0 ? accel.y : accel.x
 
-      var tmp_x = i%2==0 ? -accel.x :accel.y;
-      var tmp_y = i%2==0 ? accel.y :accel.x;
       // facing up(>=2) or down
-      x = i>=2 ? tmp_x:-tmp_x;
-      y = i>=2 ? tmp_y:-tmp_y;
+      x = i>=2 ? tmp_x : -tmp_x
+      y = i>=2 ? tmp_y : -tmp_y
     }
 
     var hRatio = x/(moveable() ? 5 : docWidth),
         vRatio = y/(moveable() ? 5 : docHeight),
-        layer, i;
+        layer, i
 
     for (i = layers.length; i--;) {
       layer = layers[i]
@@ -118,7 +117,7 @@
     },
     disable: function(){
       $(document).unbind('mousemove.plax')
-      window.ondevicemotion = undefined;
+      window.ondevicemotion = undefined
     }
   }
 
