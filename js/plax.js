@@ -38,13 +38,6 @@
         "xMotion" : 0,
         "yMotion" : 0
       }
-      
-  Array.prototype.max = function(){
-    return Math.max.apply({},this)
-  }
-  Array.prototype.min = function(){
-    return Math.min.apply({},this)
-  }
 
   $(window).resize(function() {
       docWidth  = $(window).width()
@@ -80,6 +73,28 @@
   }
 
 
+  // Get minimum value of an array
+  //
+  // arr - array to be tested
+  //
+  // returns the smallest value in the array
+
+  getMin = function(arr){
+    return Math.min.apply({}, arr)
+  }
+
+
+  // Get maximum value of an array
+  //
+  // arr - array to be tested
+  //
+  // returns the largest value in the array
+
+  getMax = function(arr){
+    return Math.max.apply({}, arr)
+  }
+
+
   // Determine if the device has an accelerometer
 
   function moveable(){
@@ -108,8 +123,10 @@
       motionData.xArray.push(x)
       motionData.yArray.push(y)
 
-      motionData.xMotion = Math.round((motionData.xArray.max() - motionData.xArray.min())*1000)/1000
-      motionData.yMotion = Math.round((motionData.yArray.max() - motionData.yArray.min())*1000)/1000
+      motionData.xMotion = Math.round((getMax(motionData.xArray) - getMin(motionData.xArray))*1000)/1000
+      motionData.yMotion = Math.round((getMax(motionData.yArray) - getMin(motionData.yArray))*1000)/1000
+
+      console.log(motionData.xMotion)
 
       if(motionData.xMotion > motionAllowance || motionData.yMotion > motionAllowance){
         movementCycles++;
