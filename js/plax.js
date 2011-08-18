@@ -160,7 +160,7 @@
 
     var x = e.pageX,
         y = e.pageY
-        
+
     if(motionEnabled == true){
           // portrait(%2==0) or landscape
       var i = window.orientation ? (window.orientation +180) %360 / 90 : 2,
@@ -170,11 +170,18 @@
       // facing up(>=2) or down
       x = i>=2 ? tmp_x : -tmp_x
       y = i>=2 ? tmp_y : -tmp_y
+
+      // reset small overages to keep it within range
+      x = (x > 1 || x < -1) ? Math.round(x) : x
+      y = (y > 1 || y < -1) ? Math.round(y) : y
+
+      // change value from a range of -1 to 1 => 0 to 1
+      x = (x+1)/2
+      y = (y+1)/2
     }
 
-    var strength = (motionEnabled == true && window.orientation) ? 5 : 2,
-        hRatio = x/((motionEnabled == true) ? strength : docWidth),
-        vRatio = y/((motionEnabled == true) ? strength : docHeight),
+    var hRatio = x/((motionEnabled == true) ? 1 : docWidth),
+        vRatio = y/((motionEnabled == true) ? 1 : docHeight),
         layer, i
 
     for (i = layers.length; i--;) {
