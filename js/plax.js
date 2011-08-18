@@ -126,8 +126,6 @@
       motionData.xMotion = Math.round((getMax(motionData.xArray) - getMin(motionData.xArray))*1000)/1000
       motionData.yMotion = Math.round((getMax(motionData.yArray) - getMin(motionData.yArray))*1000)/1000
 
-      console.log(motionData.xMotion)
-
       if(motionData.xMotion > motionAllowance || motionData.yMotion > motionAllowance){
         movementCycles++;
       } else {
