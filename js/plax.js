@@ -30,6 +30,7 @@
       docWidth        = $(window).width(),
       docHeight       = $(window).height(),
       motionEnabled   = false,
+      motionMax       = 1;
       motionAllowance = .05,
       movementCycles  = 0,
       motionData      = {
@@ -126,6 +127,13 @@
       motionData.xMotion = Math.round((getMax(motionData.xArray) - getMin(motionData.xArray))*1000)/1000
       motionData.yMotion = Math.round((getMax(motionData.yArray) - getMin(motionData.yArray))*1000)/1000
 
+      if((motionData.xMotion > 1.5 || motionData.yMotion > 1.5)) {
+        if(motionMax!=10){
+          motionMax = 10
+        }
+      }
+
+      // test for sustained motion
       if(motionData.xMotion > motionAllowance || motionData.yMotion > motionAllowance){
         movementCycles++;
       } else {
@@ -163,7 +171,7 @@
 
     if(motionEnabled == true){
           // portrait(%2==0) or landscape
-      var i = window.orientation ? (window.orientation +180) %360 / 90 : 2,
+      var i = window.orientation ? (window.orientation + 180) % 360 / 90 : 2,
           accel= e.accelerationIncludingGravity,
           tmp_x = i%2==0 ? -accel.x : accel.y,
           tmp_y = i%2==0 ? accel.y : accel.x
@@ -171,17 +179,27 @@
       x = i>=2 ? tmp_x : -tmp_x
       y = i>=2 ? tmp_y : -tmp_y
 
-      // reset small overages to keep it within range
-      x = (x > 1 || x < -1) ? Math.round(x) : x
-      y = (y > 1 || y < -1) ? Math.round(y) : y
-
-      // change value from a range of -1 to 1 => 0 to 1
+      // change value from a range of -x to x => 0 to 1
       x = (x+1)/2
       y = (y+1)/2
+      
+      // keep values within range
+      if(x < 0 ){
+        x = 0
+      } else if( x > motionMax ) {
+        x = motionMax
+      }
+
+      if(y < 0 ){
+        y = 0
+      } else if( x > motionMax ) {
+        y = motionMax
+      }
+
     }
 
-    var hRatio = x/((motionEnabled == true) ? 1 : docWidth),
-        vRatio = y/((motionEnabled == true) ? 1 : docHeight),
+    var hRatio = x/((motionEnabled == true) ? motionMax : docWidth),
+        vRatio = y/((motionEnabled == true) ? motionMax : docHeight),
         layer, i
 
     for (i = layers.length; i--;) {
