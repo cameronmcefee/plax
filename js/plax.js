@@ -30,7 +30,7 @@
       docWidth        = $(window).width(),
       docHeight       = $(window).height(),
       motionEnabled   = false,
-      motionMax       = 1;
+      motionMax       = 1,
       motionAllowance = .05,
       movementCycles  = 0,
       motionData      = {
