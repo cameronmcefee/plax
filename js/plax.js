@@ -180,8 +180,8 @@
       y = i>=2 ? tmp_y : -tmp_y
 
       // change value from a range of -x to x => 0 to 1
-      x = (x+1)/2
-      y = (y+1)/2
+      x = (x+motionMax)/2
+      y = (y+motionMax)/2
       
       // keep values within range
       if(x < 0 ){
@@ -192,7 +192,7 @@
 
       if(y < 0 ){
         y = 0
-      } else if( x > motionMax ) {
+      } else if( y > motionMax ) {
         y = motionMax
       }
 
