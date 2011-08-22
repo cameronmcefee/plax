@@ -82,7 +82,7 @@
   //
   // returns the smallest value in the array
 
-  getMin = function(arr){
+  function getMin(arr){
     return Math.min.apply({}, arr)
   }
 
@@ -93,7 +93,7 @@
   //
   // returns the largest value in the array
 
-  getMax = function(arr){
+  function getMax(arr){
     return Math.max.apply({}, arr)
   }
 
