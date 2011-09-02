@@ -27,6 +27,20 @@ $('#plax-bg').plaxify({"xRange":10,"yRange":10,"invert":true})
 $.plax.enable()
 ```
 
+You can dynamically redefine the range of a layer by running `plaxify()` on it again. If the id matches another idea in the layer array, it will replace it with the new range.
+
+```javascript
+$('#plax-octocat').plaxify({"xRange":40,"yRange":40})
+$('#plax-earth').plaxify({"xRange":20,"yRange":20,"invert":true})
+$('#plax-bg').plaxify({"xRange":10,"yRange":10,"invert":true})
+$.plax.enable()
+
+$('#my-btn').click(function(){
+  // bigger range
+  $('#plax-octocat').plaxify({"xRange":200,"yRange":200})
+})
+```
+
 
 ## Documentation
 
