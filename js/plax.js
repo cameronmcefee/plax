@@ -51,8 +51,15 @@
   $.fn.plaxify = function (params){
 
     return this.each(function () {
+      var layerExistsAt = -1
+      var layer         = {"xRange":0,"yRange":0,"invert":false}
 
-      var layer = {"xRange":0,"yRange":0,"invert":false}
+      for (var i=0;i<layers.length;i++){
+        if ($(this).attr('id') == layers[i].obj.attr('id')){
+          layerExistsAt = i
+        }
+      }
+
       for (var param in params) {
         if (layer[param] == 0) {
           layer[param] = params[param]
@@ -71,7 +78,12 @@
         layer.startX += Math.floor(layer.xRange/2)
         layer.startY += Math.floor(layer.yRange/2)
       }
-      layers.push(layer)
+      if(layerExistsAt >= 0){
+        layers.splice(layerExistsAt,1,layer)
+      } else {
+        layers.push(layer)
+      }
+      
     })
   }
 
