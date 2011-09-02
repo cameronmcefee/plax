@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Plax Example</title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+    <!-- <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script> -->
+
+    <script type="text/javascript" src="../js/plax.js"></script>
+    <style type="text/css">
+      * {
+        margin: 0px;
+        padding: 0px;
+      }
+      body {
+        background: #ebeae6 url(img/body_bg.png) top left repeat;
+        position: relative;
+      }
+      div#shell {
+        display: block;
+        position: relative;
+        margin: 100px auto;
+        width: 318px;
+        height: 318px;
+      }
+      div#shell{
+        z-index: 1;
+      }
+      img#plax-logo {
+        position: absolute;
+        top: 125px;
+        left: 90px;
+        z-index: 3;
+      }
+      img#plax-sphere-1 {
+        position: absolute;
+        z-index: 4;
+        top: 189px;
+        left: 191px;
+      }
+      img#plax-sphere-2 {
+        position: absolute;
+        z-index: 2;
+        top: 49px;
+        left: 53px;
+      }
+      img#plax-sphere-3 {
+        position: absolute;
+        top: 35px;
+        left: 32px;
+        z-index: 1;
+      }
+      div#btns {
+        text-align: center;
+        font-family: Helvetica, Arial, sans-serif;
+      }
+      div#btns a {
+        text-decoration:  none;
+        color: #333;
+      }
+      div#btns a.active {
+        font-weight: bold;
+      }
+    </style>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        var toggleStatus = 'small'
+        setSmall()
+        $.plax.enable()
+
+        $("#range-small").click(function(){
+          if(toggleStatus != 'small'){
+            toggleRange()
+          }
+        })
+        $("#range-big").click(function(){
+          if(toggleStatus != 'big'){
+            toggleRange()
+          }
+        })
+        function toggleRange() {
+          if(toggleStatus == 'small'){
+            setBig()
+          } else if (toggleStatus == 'big') {
+            setSmall()
+          } else {
+            console.log(toggleStatus)
+          }
+          $("#range-big").toggleClass('active')
+          $("#range-small").toggleClass('active')
+
+          return false
+        }
+        function setSmall(){
+          $('#plax-sphere-1').plaxify({"xRange":40,"yRange":40})
+          $('#plax-logo').plaxify({"xRange":20,"yRange":20})
+          $('#plax-sphere-2').plaxify({"xRange":10,"yRange":10})
+          $('#plax-sphere-3').plaxify({"xRange":40,"yRange":40,"invert":true})
+          toggleStatus = 'small'
+        }
+        function setBig(){
+          $('#plax-sphere-1').plaxify({"xRange":200,"yRange":200})
+          $('#plax-logo').plaxify({"xRange":80,"yRange":80})
+          $('#plax-sphere-2').plaxify({"xRange":50,"yRange":50})
+          $('#plax-sphere-3').plaxify({"xRange":200,"yRange":200,"invert":true})
+          toggleStatus = 'big'
+        }
+      })
+    </script>
+    
+  </head>
+  <body>
+    <div id="shell">
+      <img src="img/plax_logo.png" width="136" height="70" id="plax-logo"/>
+      <img src="img/plax_sphere_small.png" width="93" height="92" id="plax-sphere-1"/>
+      <img src="img/plax_sphere_large.png" width="215" height="215" id="plax-sphere-2"/>
+      <img src="img/plax_sphere_small.png" width="93" height="92" id="plax-sphere-3"/>
+    </div>
+    <div id="btns">
+      <a href="#" id="range-small" class="active">small range</a> | <a href="#" id="range-big">big range</a>
+    </div>
+  </body>
+</html>
