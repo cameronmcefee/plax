@@ -52,7 +52,11 @@
 
     return this.each(function () {
       var layerExistsAt = -1
-      var layer         = {"xRange":0,"yRange":0,"invert":false}
+      var layer         = {
+        "xRange": $(this).data('xrange') || 0,
+        "yRange": $(this).data('yrange') || 0,
+        "invert": $(this).data('invert') || false
+      }
 
       for (var i=0;i<layers.length;i++){
         if ($(this).attr('id') == layers[i].obj.attr('id')){
