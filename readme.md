@@ -27,6 +27,21 @@ $('#plax-bg').plaxify({"xRange":10,"yRange":10,"invert":true})
 $.plax.enable()
 ```
 
+Another way is to specify the arguments as data attributes on the layer elements.
+
+```html
+<img src="octocat.png" data-xrange="40" data-yrange="40">
+<img src="earth.png" data-xrange="20" data-yrange="20">
+<img src="bg.png" data-xrange="10" data-yrange="10" data-invert="true">
+```
+
+Then plaxify them in bulk.
+
+```javascript
+$('img').plaxify()
+$.plax.enable()
+```
+
 You can dynamically redefine the range of a layer by running `plaxify()` on it again. If the id matches another id in the layer array, it will replace it with the new range.
 
 ```javascript
