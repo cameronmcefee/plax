@@ -1,0 +1,14 @@
+{
+    "name": "plax"
+		, "description": "javascript parallaxing"
+		, "version": "1.2.1"
+		, "homepage": "http://www.cameronmcefee.com/plax"
+		, "author": "Cameron McEfee"
+		, "main": "./js/plax.js"
+		, "keywords": ["ender", "parallax"]
+		, "ender": "noop"
+		, "repository": {
+        "type": "git"
+				, "url": "https://github.com/cameronmcefee/plax.git"
+		}
+}
