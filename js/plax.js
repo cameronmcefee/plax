@@ -55,7 +55,7 @@
       var layer         = {
         "xRange": $(this).data('xrange') || 0,
         "yRange": $(this).data('yrange') || 0,
-        "invert": $(this).data('invert') || false
+        "inverter": $(this).data('invert') ? -1 : 1 // inversion multiplier for computations
       }
 
       for (var i=0;i<layers.length;i++){
@@ -75,13 +75,8 @@
       layer.startX = this.offsetLeft
       layer.startY = this.offsetTop
 
-      if(layer.invert == false){
-        layer.startX -= Math.floor(layer.xRange/2)
-        layer.startY -= Math.floor(layer.yRange/2)
-      } else {
-        layer.startX += Math.floor(layer.xRange/2)
-        layer.startY += Math.floor(layer.yRange/2)
-      }
+      layer.startX -= layer.inverter * Math.floor(layer.xRange/2)
+      layer.startY -= layer.inverter * Math.floor(layer.yRange/2)
       if(layerExistsAt >= 0){
         layers.splice(layerExistsAt,1,layer)
       } else {
@@ -222,15 +217,9 @@
 
     for (i = layers.length; i--;) {
       layer = layers[i]
-      if (layer.invert != true) {
-        layer.obj
-          .css('left',layer.startX + (layer.xRange*hRatio))
-          .css('top', layer.startY + (layer.yRange*vRatio))
-      } else {
-        layer.obj
-          .css('left',layer.startX - (layer.xRange*hRatio))
-          .css('top', layer.startY - (layer.yRange*vRatio))
-      }
+      layer.obj
+        .css('left',layer.startX + layer.inverter*(layer.xRange*hRatio))
+        .css('top', layer.startY + layer.inverter*(layer.yRange*vRatio))
     }
   }
 
