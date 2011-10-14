@@ -55,7 +55,7 @@
       var layer         = {
         "xRange": $(this).data('xrange') || 0,
         "yRange": $(this).data('yrange') || 0,
-        "inverter": $(this).data('invert') ? -1 : 1 // inversion multiplier for computations
+        "invert": $(this).data('invert') || 0
       }
 
       for (var i=0;i<layers.length;i++){
@@ -69,6 +69,8 @@
           layer[param] = params[param]
         }
       }
+
+      layer.inverter = (layer.invert ? -1 : 1) // inversion factor for calculations
 
       // Add an object to the list of things to parallax
       layer.obj    = $(this)
