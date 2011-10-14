@@ -70,15 +70,15 @@
         }
       }
 
-      layer.inverter = (layer.invert ? -1 : 1) // inversion factor for calculations
+      layer.inversionFactor = (layer.invert ? -1 : 1) // inversion factor for calculations
 
       // Add an object to the list of things to parallax
       layer.obj    = $(this)
       layer.startX = this.offsetLeft
       layer.startY = this.offsetTop
 
-      layer.startX -= layer.inverter * Math.floor(layer.xRange/2)
-      layer.startY -= layer.inverter * Math.floor(layer.yRange/2)
+      layer.startX -= layer.inversionFactor * Math.floor(layer.xRange/2)
+      layer.startY -= layer.inversionFactor * Math.floor(layer.yRange/2)
       if(layerExistsAt >= 0){
         layers.splice(layerExistsAt,1,layer)
       } else {
@@ -220,8 +220,8 @@
     for (i = layers.length; i--;) {
       layer = layers[i]
       layer.obj
-        .css('left',layer.startX + layer.inverter*(layer.xRange*hRatio))
-        .css('top', layer.startY + layer.inverter*(layer.yRange*vRatio))
+        .css('left',layer.startX + layer.inversionFactor*(layer.xRange*hRatio))
+        .css('top', layer.startY + layer.inversionFactor*(layer.yRange*vRatio))
     }
   }
 
