@@ -55,7 +55,7 @@
       var layer         = {
         "xRange": $(this).data('xrange') || 0,
         "yRange": $(this).data('yrange') || 0,
-        "invert": $(this).data('invert') || 0
+        "invert": $(this).data('invert') || false
       }
 
       for (var i=0;i<layers.length;i++){
