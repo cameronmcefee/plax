@@ -59,7 +59,7 @@
       }
 
       for (var i=0;i<layers.length;i++){
-        if ($(this).attr('id') == layers[i].obj.attr('id')){
+        if (this === layers[i].obj.get(0)){
           layerExistsAt = i
         }
       }
