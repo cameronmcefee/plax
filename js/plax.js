@@ -55,11 +55,12 @@
       var layer         = {
         "xRange": $(this).data('xrange') || 0,
         "yRange": $(this).data('yrange') || 0,
-        "invert": $(this).data('invert') || false
+        "invert": $(this).data('invert') || false,
+        "background": $(this).data('background') || false
       }
 
       for (var i=0;i<layers.length;i++){
-        if ($(this).attr('id') == layers[i].obj.attr('id')){
+        if (this === layers[i].obj.get(0)){
           layerExistsAt = i
         }
       }
@@ -70,18 +71,48 @@
         }
       }
 
+      layer.inversionFactor = (layer.invert ? -1 : 1) // inversion factor for calculations
+
       // Add an object to the list of things to parallax
       layer.obj    = $(this)
-      layer.startX = this.offsetLeft
-      layer.startY = this.offsetTop
-
-      if(layer.invert == false){
-        layer.startX -= Math.floor(layer.xRange/2)
-        layer.startY -= Math.floor(layer.yRange/2)
+      if(layer.background) {
+        // animate using the element's background
+        pos = (layer.obj.css('background-position') || "0px 0px").split(/ /)
+        if(pos.length != 2) {
+          return
+        }
+        x = pos[0].match(/^((-?\d+)\s*px|0+\s*%|left)$/)
+        y = pos[1].match(/^((-?\d+)\s*px|0+\s*%|top)$/)
+        if(!x || !y) {
+          // no can-doesville, babydoll, we need pixels or top/left as initial values (it mightbe possible to construct a temporary image from the background-image property and get the dimensions and run some numbers, but that'll almost definitely be slow)
+          return
+        }
+        layer.startX = x[2] || 0
+        layer.startY = y[2] || 0
       } else {
-        layer.startX += Math.floor(layer.xRange/2)
-        layer.startY += Math.floor(layer.yRange/2)
+        // animate using the element's position
+        if(layer.obj.css('right') != 'auto') {
+          // positioned using the "right" propery, not "left", so we should mutate that in case the parent element resizes
+          layer.startX = $(this.parentNode).width() - this.offsetLeft - layer.obj.width()
+          layer.hProp = 'right'
+          layer.xRange = -1 * layer.xRange
+        } else {
+          layer.startX = this.offsetLeft
+          layer.hProp = 'left'
+        }
+        if(layer.obj.css('bottom') != 'auto') {
+          // positioned using the "bottom" propery, not "top", so we should mutate that in case the parent element resizes
+          layer.startY = $(this.parentNode).height() - this.offsetTop - layer.obj.height()
+          layer.vProp = 'bottom'
+          layer.yRange = -1 * layer.yRange
+        } else {
+          layer.startY = this.offsetTop
+          layer.vProp = 'top'
+        }
       }
+
+      layer.startX -= layer.inversionFactor * Math.floor(layer.xRange/2)
+      layer.startY -= layer.inversionFactor * Math.floor(layer.yRange/2)
       if(layerExistsAt >= 0){
         layers.splice(layerExistsAt,1,layer)
       } else {
@@ -222,14 +253,14 @@
 
     for (i = layers.length; i--;) {
       layer = layers[i]
-      if (layer.invert != true) {
-        layer.obj
-          .css('left',layer.startX + (layer.xRange*hRatio))
-          .css('top', layer.startY + (layer.yRange*vRatio))
+      newX = layer.startX + layer.inversionFactor*(layer.xRange*hRatio)
+      newY = layer.startY + layer.inversionFactor*(layer.yRange*vRatio)
+      if(layer.background) {
+        layer.obj.css('background-position', newX+'px '+newY+'px')
       } else {
         layer.obj
-          .css('left',layer.startX - (layer.xRange*hRatio))
-          .css('top', layer.startY - (layer.yRange*vRatio))
+          .css(layer.hProp, newX)
+          .css(layer.vProp, newY)
       }
     }
   }
