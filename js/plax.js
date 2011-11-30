@@ -96,6 +96,7 @@
           layer.startX = $(this.parentNode).width() - this.offsetLeft - layer.obj.width()
           layer.hProp = 'right'
           layer.xRange = -1 * layer.xRange
+          layer.obj.css('left', 'auto')
         } else {
           layer.startX = this.offsetLeft
           layer.hProp = 'left'
@@ -105,6 +106,7 @@
           layer.startY = $(this.parentNode).height() - this.offsetTop - layer.obj.height()
           layer.vProp = 'bottom'
           layer.yRange = -1 * layer.yRange
+          layer.obj.css('top', 'auto')
         } else {
           layer.startY = this.offsetTop
           layer.vProp = 'top'
