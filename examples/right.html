@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Plax Example</title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+    <!-- <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script> -->
+
+    <script type="text/javascript" src="../js/plax.js"></script>
+    <style type="text/css">
+      * {
+        margin: 0px;
+        padding: 0px;
+      }
+      body {
+        background: #ebeae6 url(img/body_bg.png) bottom right repeat;
+        position: relative;
+      }
+      div#shell {
+        display: block;
+        position: relative;
+        margin: 100px auto;
+        width: 318px;
+        height: 318px;
+      }
+      div#shell{
+        z-index: 1;
+      }
+      img#plax-logo {
+        position: absolute;
+        bottom: 125px;
+        right: 90px;
+        z-index: 3;
+      }
+      img#plax-sphere-1 {
+        position: absolute;
+        z-index: 4;
+        bottom: 189px;
+        right: 191px;
+      }
+      img#plax-sphere-2 {
+        position: absolute;
+        z-index: 2;
+        bottom: 49px;
+        right: 53px;
+      }
+      img#plax-sphere-3 {
+        position: absolute;
+        bottom: 35px;
+        right: 32px;
+        z-index: 1;
+      }
+    </style>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#shell img').plaxify()
+        $.plax.enable()
+      })
+    </script>
+
+  </head>
+  <body>
+    <div id="shell">
+      <img src="img/plax_logo.png" width="136" height="70" data-xrange="20" data-yrange="20" id="plax-logo"/>
+      <img src="img/plax_sphere_small.png" width="93" height="92" data-xrange="40" data-yrange="40" id="plax-sphere-1"/>
+      <img src="img/plax_sphere_large.png" width="215" height="215" data-xrange="10" data-yrange="10" id="plax-sphere-2"/>
+      <img src="img/plax_sphere_small.png" width="93" height="92" data-xrange="40" data-yrange="40" data-invert="true" id="plax-sphere-3"/>
+    </div>
+  </body>
+</html>
