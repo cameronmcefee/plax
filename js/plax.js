@@ -200,9 +200,15 @@
   function plaxifier(e) {
     if (new Date().getTime() < lastRender + delay) return
       lastRender = new Date().getTime()
+    var leftOffset = (plaxActivityTarget.offset() != null) ? plaxActivityTarget.offset().left : 0,
+        topOffset  = (plaxActivityTarget.offset()  != null) ? plaxActivityTarget.offset().top : 0,
+        x          = e.pageX-leftOffset,
+        y          = e.pageY-topOffset
+    if (
+      x < 0 || x > plaxActivityTarget.width() ||
+      y < 0 || y > plaxActivityTarget.height()
+    ) return
 
-    var x = e.pageX,
-        y = e.pageY
 
     if(motionEnabled == true){
           // portrait(%2==0) or landscape
@@ -230,7 +236,6 @@
       } else if( y > motionMax ) {
         y = motionMax
       }
-
     }
 
     var hRatio = x/((motionEnabled == true) ? motionMax : plaxActivityTarget.width()),
@@ -253,8 +258,11 @@
 
   $.plax = {
     // Activeate Plax
-    enable: function(){
+    enable: function(opts){
       $(document).bind('mousemove.plax', function (e) {
+        if(opts){
+          plaxActivityTarget = opts.target || $(window)
+        }
         plaxifier(e)
       })
 
@@ -267,12 +275,7 @@
     disable: function(){
       $(document).unbind('mousemove.plax')
       window.ondevicemotion = undefined
-    },
-    // Sets the DOM element that is used as a reference for mouse position
-    target: function(t){
-
     }
-
   }
 
   if (typeof ender !== 'undefined') {
