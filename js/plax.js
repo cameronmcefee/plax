@@ -29,8 +29,8 @@
       delay           = 1 / maxfps * 1000,
       lastRender      = new Date().getTime(),
       layers          = [],
-      docWidth        = $(window).width(),
-      docHeight       = $(window).height(),
+      plaxTargetWidth        = $(window).width(),
+      plaxTargetHeight       = $(window).height(),
       motionEnabled   = false,
       motionMax       = 1,
       motionAllowance = .05,
@@ -43,8 +43,8 @@
       }
 
   $(window).resize(function() {
-      docWidth  = $(window).width()
-      docHeight = $(window).height()
+      plaxTargetWidth  = $(window).width()
+      plaxTargetHeight = $(window).height()
   })
 
   // Public Methods
@@ -239,8 +239,8 @@
 
     }
 
-    var hRatio = x/((motionEnabled == true) ? motionMax : docWidth),
-        vRatio = y/((motionEnabled == true) ? motionMax : docHeight),
+    var hRatio = x/((motionEnabled == true) ? motionMax : plaxTargetWidth),
+        vRatio = y/((motionEnabled == true) ? motionMax : plaxTargetHeight),
         layer, i
 
     for (i = layers.length; i--;) {
