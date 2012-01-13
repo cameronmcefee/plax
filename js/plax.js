@@ -25,17 +25,17 @@
 
 (function ($) {
 
-  var maxfps          = 25,
-      delay           = 1 / maxfps * 1000,
-      lastRender      = new Date().getTime(),
-      layers          = [],
-      plaxTargetWidth        = $(window).width(),
-      plaxTargetHeight       = $(window).height(),
-      motionEnabled   = false,
-      motionMax       = 1,
-      motionAllowance = .05,
-      movementCycles  = 0,
-      motionData      = {
+  var maxfps           = 25,
+      delay            = 1 / maxfps * 1000,
+      lastRender       = new Date().getTime(),
+      layers           = [],
+      plaxTargetWidth  = $(window).width(),
+      plaxTargetHeight = $(window).height(),
+      motionEnabled    = false,
+      motionMax        = 1,
+      motionAllowance  = .05,
+      movementCycles   = 0,
+      motionData       = {
         "xArray"  : [0,0,0,0,0],
         "yArray"  : [0,0,0,0,0],
         "xMotion" : 0,
