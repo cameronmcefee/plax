@@ -132,6 +132,8 @@
 
 
   // Determine if the device has an accelerometer
+  //
+  // returns true if the browser has window.DeviceMotionEvent (mobile)
 
   function moveable(){
     return window.DeviceMotionEvent != undefined
@@ -141,8 +143,12 @@
   // Determine if the device is actually moving. If it is, enable motion based parallaxing.
   // Otherwise, use the mouse to parallax
   //
-  // e - devicemotion event
-  
+  // Parameters
+  //
+  //  e - devicemotion event
+  //
+  // returns nothing
+
   function detectMotion(e){
     if (new Date().getTime() < lastRender + delay) return
 
@@ -195,7 +201,11 @@
   // Move the elements in the `layers` array within their ranges, 
   // based on mouse or motion input 
   //
-  // e - mousemove or devicemotion event
+  // Parameters
+  //
+  //  e - mousemove or devicemotion event
+  //
+  // returns nothing
 
   function plaxifier(e) {
     if (new Date().getTime() < lastRender + delay) return
@@ -257,11 +267,23 @@
   }
 
   $.plax = {
-    // Activeate Plax
+
+    // Begin parallaxing
+    //
+    // Parameters
+    //
+    //  opts - options for plax
+    //    activityTarget - optional; plax will only work within the bounds of this element, if supplied.
+    //
+    //  Examples
+    //
+    //    $.plax.enable({ "activityTarget": $('#myPlaxDiv')})
+    //    # plax only happens when the mouse is over #myPlaxDiv
+    //
+    // returns nothing
     enable: function(opts){
       $(document).bind('mousemove.plax', function (e) {
         if(opts){
-          plaxActivityTarget = opts.target || $(window)
           plaxActivityTarget = opts.activityTarget || $(window)
         }
         plaxifier(e)
@@ -272,7 +294,15 @@
       }
 
     },
-    // Deactiveate Plax
+
+    // Stop parallaxing
+    //
+    //  Examples
+    //
+    //    $.plax.disable()
+    //    # plax no longer runs
+    //
+    // returns nothing
     disable: function(){
       $(document).unbind('mousemove.plax')
       window.ondevicemotion = undefined
