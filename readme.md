@@ -85,7 +85,7 @@ Enable parallaxing.
 
 __Parameters__
 
-`activityTarget` &mdash; Object: (optional) sets the DOM element over which Plax will be active.
+`activityTarget` &mdash; Object: (optional) sets a specific DOM element over which Plax will track the mouse.
 
 
 ### disable()
