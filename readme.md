@@ -45,7 +45,7 @@ $.plax.enable()
 If you would like your elements to parallax only when a certain element is moused over, you need to supply an argument to `enable()`
 
 ```javascript
-$.plax.enable({ "activityTarget": $('#shell')})
+$.plax.enable({ "activityTarget": $('#myPlaxDiv')})
 ```
 
 You can dynamically redefine the range of a layer by running `plaxify()` on it again. If the id matches another id in the layer array, it will replace it with the new range.
