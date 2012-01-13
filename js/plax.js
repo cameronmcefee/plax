@@ -262,6 +262,7 @@
       $(document).bind('mousemove.plax', function (e) {
         if(opts){
           plaxActivityTarget = opts.target || $(window)
+          plaxActivityTarget = opts.activityTarget || $(window)
         }
         plaxifier(e)
       })
