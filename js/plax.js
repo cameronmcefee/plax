@@ -25,27 +25,21 @@
 
 (function ($) {
 
-  var maxfps           = 25,
-      delay            = 1 / maxfps * 1000,
-      lastRender       = new Date().getTime(),
-      layers           = [],
-      plaxTargetWidth  = $(window).width(),
-      plaxTargetHeight = $(window).height(),
-      motionEnabled    = false,
-      motionMax        = 1,
-      motionAllowance  = .05,
-      movementCycles   = 0,
-      motionData       = {
+  var maxfps             = 25,
+      delay              = 1 / maxfps * 1000,
+      lastRender         = new Date().getTime(),
+      layers             = [],
+      plaxActivityTarget = $(window),
+      motionEnabled      = false,
+      motionMax          = 1,
+      motionAllowance    = .05,
+      movementCycles     = 0,
+      motionData         = {
         "xArray"  : [0,0,0,0,0],
         "yArray"  : [0,0,0,0,0],
         "xMotion" : 0,
         "yMotion" : 0
       }
-
-  $(window).resize(function() {
-      plaxTargetWidth  = $(window).width()
-      plaxTargetHeight = $(window).height()
-  })
 
   // Public Methods
   $.fn.plaxify = function (params){
@@ -239,8 +233,8 @@
 
     }
 
-    var hRatio = x/((motionEnabled == true) ? motionMax : plaxTargetWidth),
-        vRatio = y/((motionEnabled == true) ? motionMax : plaxTargetHeight),
+    var hRatio = x/((motionEnabled == true) ? motionMax : plaxActivityTarget.width()),
+        vRatio = y/((motionEnabled == true) ? motionMax : plaxActivityTarget.height()),
         layer, i
 
     for (i = layers.length; i--;) {
