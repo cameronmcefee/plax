@@ -3,12 +3,12 @@ Plax is a [jQuery](http://jquery.com) / [Ender](http://ender.no.de) plugin that 
 
 ## Dependencies
 
-### [jQuery](http://jquery.com/) or [Ender](http://ender.no.de/) ###
+**[jQuery](http://jquery.com/) or [Ender](http://ender.no.de/)**
 
 
 ## Usage
 
-### [Plax Demo](http://www.cameronmcefee.com/plax-demo)
+**[Plax Demo](http://www.cameronmcefee.com/plax-demo)**
 
 In the &lt;head&gt; of your document, link both jQuery and plax.
 
@@ -42,6 +42,12 @@ $('img').plaxify()
 $.plax.enable()
 ```
 
+If you would like your elements to parallax only when a certain element is moused over, you need to supply an argument to `enable()`
+
+```javascript
+$.plax.enable({ "activityTarget": $('#shell')})
+```
+
 You can dynamically redefine the range of a layer by running `plaxify()` on it again. If the id matches another id in the layer array, it will replace it with the new range.
 
 ```javascript
@@ -69,13 +75,18 @@ __Parameters__
 
 `yRange` &mdash; integer: is the distance across the y-axis the object will travel.
 
-`invert` &mdash; boolean: inverting will invert the direction the object will travel across each axis.*
+`invert` &mdash; boolean: (optional) inverting will invert the direction the object will travel across each axis.*
 
 \* The same effect can be achieved by providing `xRange` and `yRange` with negative numbers, making it possible to invert only a single axis.
 
 ### enable()
 
 Enable parallaxing.
+
+__Parameters__
+
+`activityTarget` &mdash; Object: (optional) sets the DOM element over which Plax will be active.
+
 
 ### disable()
 
