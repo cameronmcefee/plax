@@ -273,7 +273,12 @@
     disable: function(){
       $(document).unbind('mousemove.plax')
       window.ondevicemotion = undefined
+    },
+    // Sets the DOM element that is used as a reference for mouse position
+    target: function(t){
+
     }
+
   }
 
   if (typeof ender !== 'undefined') {
