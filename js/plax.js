@@ -34,6 +34,9 @@
       motionMax          = 1,
       motionAllowance    = .05,
       movementCycles     = 0,
+      motionLowPassFilter= 0.2,
+      motionLastX        = 1,
+      motionLastY        = 1,
       motionData         = {
         "xArray"  : [0,0,0,0,0],
         "yArray"  : [0,0,0,0,0],
@@ -156,6 +159,13 @@
       var accel= e.accelerationIncludingGravity,
           x = accel.x,
           y = accel.y
+
+      x = (x * motionLowPassFilter) + (motionLastX * (1.0 - motionLowPassFilter));
+      y = (y * motionLowPassFilter) + (motionLastY * (1.0 - motionLowPassFilter));
+
+      motionLastX = x;
+      motionLastY = y;
+
       if(motionData.xArray.length >= 5){
         motionData.xArray.shift()
       }
