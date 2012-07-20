@@ -34,7 +34,7 @@
       motionMax          = 1,
       motionAllowance    = .05,
       movementCycles     = 0,
-      motionLowPassFilter= 0.2,
+      motionLowPassFilter= 0.05,
       motionLastX        = 1,
       motionLastY        = 1,
       motionData         = {
