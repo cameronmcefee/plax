@@ -30,23 +30,12 @@
       lastRender         = new Date().getTime(),
       layers             = [],
       plaxActivityTarget = $(window),
-      motionEnabled      = false,
       motionMax          = 1,
-      motionAllowance    = .05,
-      movementCycles     = 0,
-      motionLowPassFilter= 0.05,
-      motionLastX        = 1,
-      motionLastY        = 1,
-      motionData         = {
-        "xArray"  : [0,0,0,0,0],
-        "yArray"  : [0,0,0,0,0],
-        "xMotion" : 0,
-        "yMotion" : 0
-      }
+      motionStartX       = null,
+      motionStartY       = null
 
   // Public Methods
   $.fn.plaxify = function (params){
-
     return this.each(function () {
       var layerExistsAt = -1
       var layer         = {
@@ -111,102 +100,28 @@
     })
   }
 
-
-  // Get minimum value of an array
-  //
-  // arr - array to be tested
-  //
-  // returns the smallest value in the array
-
-  function getMin(arr){
-    return Math.min.apply({}, arr)
-  }
-
-
-  // Get maximum value of an array
-  //
-  // arr - array to be tested
-  //
-  // returns the largest value in the array
-
-  function getMax(arr){
-    return Math.max.apply({}, arr)
-  }
-
-
   // Determine if the device has an accelerometer
   //
   // returns true if the browser has window.DeviceMotionEvent (mobile)
-
   function moveable(){
     return window.DeviceMotionEvent != undefined
   }
 
-
-  // Determine if the device is actually moving. If it is, enable motion based parallaxing.
-  // Otherwise, use the mouse to parallax
+  // The values pulled from the gyroscope of a motion device.
   //
-  // Parameters
-  //
-  //  e - devicemotion event
-  //
-  // returns nothing
+  // Returns an object literal with x and y as options.
+  function valuesFromMotion(e) {
+    x = e.gamma
+    y = e.beta
 
-  function detectMotion(e){
-    if (new Date().getTime() < lastRender + delay) return
+    motionStartX = (motionStartX == null) ? x : motionStartX
+    motionStartY = (motionStartY == null) ? y : motionStartY
 
-    if(moveable()){
-      var accel= e.accelerationIncludingGravity,
-          x = accel.x,
-          y = accel.y
-
-      x = (x * motionLowPassFilter) + (motionLastX * (1.0 - motionLowPassFilter));
-      y = (y * motionLowPassFilter) + (motionLastY * (1.0 - motionLowPassFilter));
-
-      motionLastX = x;
-      motionLastY = y;
-
-      if(motionData.xArray.length >= 5){
-        motionData.xArray.shift()
-      }
-      if(motionData.yArray.length >= 5){
-        motionData.yArray.shift()
-      }
-      motionData.xArray.push(x)
-      motionData.yArray.push(y)
-
-      motionData.xMotion = Math.round((getMax(motionData.xArray) - getMin(motionData.xArray))*1000)/1000
-      motionData.yMotion = Math.round((getMax(motionData.yArray) - getMin(motionData.yArray))*1000)/1000
-
-      if((motionData.xMotion > 1.5 || motionData.yMotion > 1.5)) {
-        if(motionMax!=10){
-          motionMax = 10
-        }
-      }
-
-      // test for sustained motion
-      if(motionData.xMotion > motionAllowance || motionData.yMotion > motionAllowance){
-        movementCycles++;
-      } else {
-        movementCycles = 0;
-      }
-
-      if(movementCycles >= 5){
-        motionEnabled = true
-        $(document).unbind('mousemove.plax')
-        //window.ondevicemotion = function(e){plaxifier(e)}
-
-        $(window).bind('devicemotion', plaxifier(e))
-      } else {
-        motionEnabled = false
-        $(window).unbind('devicemotion')
-        $(document).bind('mousemove.plax', function (e) {
-          plaxifier(e)
-        })
-      }
+    return {
+      x: x - motionStartX,
+      y: y - motionStartY
     }
   }
-
 
   // Move the elements in the `layers` array within their ranges, 
   // based on mouse or motion input 
@@ -216,12 +131,11 @@
   //  e - mousemove or devicemotion event
   //
   // returns nothing
-
   function plaxifier(e) {
     if (new Date().getTime() < lastRender + delay) return
       lastRender = new Date().getTime()
     var leftOffset = (plaxActivityTarget.offset() != null) ? plaxActivityTarget.offset().left : 0,
-        topOffset  = (plaxActivityTarget.offset()  != null) ? plaxActivityTarget.offset().top : 0,
+        topOffset  = (plaxActivityTarget.offset() != null) ? plaxActivityTarget.offset().top : 0,
         x          = e.pageX-leftOffset,
         y          = e.pageY-topOffset
     if (
@@ -229,37 +143,18 @@
       y < 0 || y > plaxActivityTarget.height()
     ) return
 
+    if(moveable()){
+      values = valuesFromMotion(e)
 
-    if(motionEnabled == true){
-          // portrait(%2==0) or landscape
-      var i = window.orientation ? (window.orientation + 180) % 360 / 90 : 2,
-          accel= e.accelerationIncludingGravity,
-          tmp_x = i%2==0 ? -accel.x : accel.y,
-          tmp_y = i%2==0 ? accel.y : accel.x
-      // facing up(>=2) or down
-      x = i>=2 ? tmp_x : -tmp_x
-      y = i>=2 ? tmp_y : -tmp_y
-
-      // change value from a range of -x to x => 0 to 1
-      x = (x+motionMax)/2
-      y = (y+motionMax)/2
+      // Admittedly fuzzy measurements
+      x = values.x / 30
+      y = values.y / 30
       
-      // keep values within range
-      if(x < 0 ){
-        x = 0
-      } else if( x > motionMax ) {
-        x = motionMax
-      }
-
-      if(y < 0 ){
-        y = 0
-      } else if( y > motionMax ) {
-        y = motionMax
-      }
+      console.log(x)
     }
 
-    var hRatio = x/((motionEnabled == true) ? motionMax : plaxActivityTarget.width()),
-        vRatio = y/((motionEnabled == true) ? motionMax : plaxActivityTarget.height()),
+    var hRatio = x/((moveable() == true) ? motionMax : plaxActivityTarget.width()),
+        vRatio = y/((moveable() == true) ? motionMax : plaxActivityTarget.height()),
         layer, i
 
     for (i = layers.length; i--;) {
@@ -277,7 +172,6 @@
   }
 
   $.plax = {
-
     // Begin parallaxing
     //
     // Parameters
@@ -300,7 +194,7 @@
       })
 
       if(moveable()){
-        window.ondevicemotion = function(e){detectMotion(e)}
+        window.ondeviceorientation = function(e){plaxifier(e)}
       }
 
     },
@@ -315,7 +209,7 @@
     // returns nothing
     disable: function(){
       $(document).unbind('mousemove.plax')
-      window.ondevicemotion = undefined
+      window.ondeviceorientation = undefined
     }
   }
 
