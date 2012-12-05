@@ -312,10 +312,14 @@
     //    $.plax.disable()
     //    # plax no longer runs
     //
+    //    $.plax.disable({ "clearLayers": true })
+    //    # plax no longer runs and all layers are forgotten
+    //
     // returns nothing
-    disable: function(){
+    disable: function(opts){
       $(document).unbind('mousemove.plax')
       window.ondevicemotion = undefined
+      if (opts && typeof opts.clearLayers === 'boolean' && opts.clearLayers) layers = []
     }
   }
 
