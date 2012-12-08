@@ -32,7 +32,8 @@
       plaxActivityTarget = $(window),
       motionMax          = 1,
       motionStartX       = null,
-      motionStartY       = null
+      motionStartY       = null,
+      ignoreMoveable     = false
 
   // Public Methods
   $.fn.plaxify = function (params){
@@ -104,7 +105,7 @@
   //
   // returns true if the browser has window.DeviceMotionEvent (mobile)
   function moveable(){
-    return window.DeviceMotionEvent != undefined
+    return (ignoreMoveable==true) ? false : window.DeviceOrientationEvent != undefined
   }
 
   // The values pulled from the gyroscope of a motion device.
@@ -144,13 +145,14 @@
     ) return
 
     if(moveable()){
+      if(e.gamma == undefined){
+        ignoreMoveable = true
+      }
       values = valuesFromMotion(e)
 
       // Admittedly fuzzy measurements
       x = values.x / 30
       y = values.y / 30
-      
-      console.log(x)
     }
 
     var hRatio = x/((moveable() == true) ? motionMax : plaxActivityTarget.width()),
