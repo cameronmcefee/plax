@@ -139,6 +139,7 @@
         topOffset  = (plaxActivityTarget.offset() != null) ? plaxActivityTarget.offset().top : 0,
         x          = e.pageX-leftOffset,
         y          = e.pageY-topOffset
+
     if (
       x < 0 || x > plaxActivityTarget.width() ||
       y < 0 || y > plaxActivityTarget.height()
@@ -147,6 +148,7 @@
     if(moveable()){
       if(e.gamma == undefined){
         ignoreMoveable = true
+        return
       }
       values = valuesFromMotion(e)
 
