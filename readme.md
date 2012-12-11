@@ -92,6 +92,10 @@ __Parameters__
 
 Disable parallaxing.
 
+__Parameters__
+
+`clearLayers` &mdash; Boolean: (optional) clears all previously defined layers when disabling.
+
 
 ## Best Practices
 
