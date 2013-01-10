@@ -115,6 +115,19 @@
     x = e.gamma
     y = e.beta
 
+    // Swap x and y in Landscape orientation
+    if (Math.abs(window.orientation) === 90) {
+      var a = x;
+      x = y;
+      y = a;
+    }
+
+    // Invert x and y in upsidedown orientations
+    if (window.orientation < 0) {
+      x = -x;
+      y = -y;
+    }
+
     motionStartX = (motionStartX == null) ? x : motionStartX
     motionStartY = (motionStartY == null) ? y : motionStartY
 
