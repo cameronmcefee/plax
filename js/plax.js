@@ -74,8 +74,8 @@
           // no can-doesville, babydoll, we need pixels or top/left as initial values (it mightbe possible to construct a temporary image from the background-image property and get the dimensions and run some numbers, but that'll almost definitely be slow)
           return
         }
-        layer.startX = x[2] || 0
-        layer.startY = y[2] || 0
+        layer.originX = layer.startX = x[2] || 0
+        layer.originY = layer.startY = y[2] || 0
       } else {
 
         // Figure out where the element is positioned, then reposition it from the top/left
@@ -86,8 +86,8 @@
           'right' :'',
           'bottom':''
         })
-        layer.startX = this.offsetLeft
-        layer.startY = this.offsetTop
+        layer.originX = layer.startX = this.offsetLeft
+        layer.originY = layer.startY = this.offsetTop
       }
 
       layer.startX -= layer.inversionFactor * Math.floor(layer.xRange/2)
@@ -230,6 +230,18 @@
     disable: function(opts){
       $(document).unbind('mousemove.plax')
       window.ondeviceorientation = undefined
+      if (opts && typeof opts.restorePositions === 'boolean' && opts.restorePositions) {
+        for(var i = layers.length; i--;) {
+          layer = layers[i]
+          if(layers[i].background) {
+            layer.obj.css('background-position', layer.originX+'px '+layer.originY+'px')
+          } else {
+            layer.obj
+              .css('left', layer.originX)
+              .css('top', layer.originY)
+          }
+        }
+      }
       if (opts && typeof opts.clearLayers === 'boolean' && opts.clearLayers) layers = []
     }
   }

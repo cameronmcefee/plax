@@ -94,6 +94,8 @@ Disable parallaxing.
 
 __Parameters__
 
+`restorePositions` &mdash; Boolean: (optional) resets all previously defined layers to their original positions. Useful when combining Plax with functions to hide and show various parts of the page, a good example being [turn.js](http://www.turnjs.com/) [(github repo)](https://github.com/blasten/turn.js).
+
 `clearLayers` &mdash; Boolean: (optional) clears all previously defined layers when disabling.
 
 
