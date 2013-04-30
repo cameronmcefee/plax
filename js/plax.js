@@ -31,6 +31,7 @@
       layers             = [],
       plaxActivityTarget = $(window),
       motionMax          = 1,
+      motionMin          = -1,
       motionStartX       = null,
       motionStartY       = null,
       ignoreMoveable     = false
@@ -168,6 +169,12 @@
       // Admittedly fuzzy measurements
       x = values.x / 30
       y = values.y / 30
+      // Ensure not outside of expected range, -1 to 1
+      x = x < motionMin ? motionMin : (x > motionMax ? motionMax : x)
+      y = y < motionMin ? motionMin : (y > motionMax ? motionMax : y)
+      // Normalize from -1 to 1 => 0 to 1
+      x = (x + 1) / 2
+      y = (y + 1) / 2
     }
 
     var hRatio = x/((moveable() == true) ? motionMax : plaxActivityTarget.width()),
