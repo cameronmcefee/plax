@@ -94,6 +94,8 @@ Disable parallaxing.
 
 __Parameters__
 
+`restorePositions` &mdash; Boolean: (optional) resets all previously defined layers to their original positions when plax is deactivated. 
+
 `clearLayers` &mdash; Boolean: (optional) clears all previously defined layers when disabling.
 
 
