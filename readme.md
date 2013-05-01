@@ -87,6 +87,7 @@ __Parameters__
 
 `activityTarget` &mdash; Object: (optional) sets a specific DOM element over which Plax will track the mouse.
 
+`gyroRange` &mdash; Integer / Float: (optional) sets the degrees of tilt needed to reach full movement in one direction, from the center position. For the full range, two times the degrees tilt is needed. Default value: 30.
 
 ### disable()
 
