@@ -88,8 +88,8 @@
           'right' :'',
           'bottom':''
         })
-        layer.originX = layer.startX = this.offsetLeft
-        layer.originY = layer.startY = this.offsetTop
+        layer.originX = layer.startX = position.left
+        layer.originY = layer.startY = position.top
       }
 
       layer.startX -= layer.inversionFactor * Math.floor(layer.xRange/2)
