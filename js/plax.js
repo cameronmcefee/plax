@@ -30,6 +30,7 @@
       lastRender         = new Date().getTime(),
       layers             = [],
       plaxActivityTarget = $(window),
+      motionDegrees      = 30,
       motionMax          = 1,
       motionMin          = -1,
       motionStartX       = null,
@@ -167,8 +168,8 @@
       values = valuesFromMotion(e)
 
       // Admittedly fuzzy measurements
-      x = values.x / 30
-      y = values.y / 30
+      x = values.x / motionDegrees
+      y = values.y / motionDegrees
       // Ensure not outside of expected range, -1 to 1
       x = x < motionMin ? motionMin : (x > motionMax ? motionMax : x)
       y = y < motionMin ? motionMin : (y > motionMax ? motionMax : y)
@@ -210,10 +211,12 @@
     //
     // returns nothing
     enable: function(opts){
+      if (opts) {
+        if (opts.activityTarget) plaxActivityTarget = opts.activityTarget || $(window)
+        if (typeof opts.gyroRange === 'number' && opts.gyroRange > 0) motionDegrees = opts.gyroRange
+      }
+
       $(document).bind('mousemove.plax', function (e) {
-        if(opts){
-          plaxActivityTarget = opts.activityTarget || $(window)
-        }
         plaxifier(e)
       })
 
