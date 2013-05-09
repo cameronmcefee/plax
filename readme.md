@@ -1,9 +1,9 @@
-Plax is a [jQuery](http://jquery.com) / [Ender](http://ender.no.de) plugin that makes it suuuuuper easy to parallax elements in your site based on mouse position. You can see it implemented in many places throughout GitHub, including the [404 page](http://www.github.com/404), the [500 page](http://www.github.com/500), and the [about page](http://www.github.com/about). I've also used a modified version to [parallax a URL](http://cameronmcefee.com/parallax-url/).
+Plax is a [jQuery](http://jquery.com) plugin that makes it suuuuuper easy to parallax elements in your site based on mouse position. You can see it implemented in many places throughout GitHub, including the [404 page](http://www.github.com/404), the [500 page](http://www.github.com/500), and the [about page](http://www.github.com/about). I've also used a modified version to [parallax a URL](http://cameronmcefee.com/parallax-url/).
 
 
 ## Dependencies
 
-**[jQuery](http://jquery.com/) or [Ender](http://ender.no.de/)**
+**[jQuery](http://jquery.com/)
 
 
 ## Usage
@@ -14,7 +14,6 @@ In the &lt;head&gt; of your document, link both jQuery and plax.
 
 ```html
 <script type="text/javascript" src="/js/jquery.min.js"></script>
-<!-- <script type="text/javascript" src="/js/ender.min.js"></script> -->
 <script type="text/javascript" src="/js/plax.js"></script>
 ```
 
