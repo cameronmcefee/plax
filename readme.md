@@ -69,13 +69,13 @@ $('#my-btn').click(function(){
 
 Add an item to the list of parallaxing layers. Ranges are centered at the items start location. For example, an item with a 20px range will be able to move 10px forward and 10px backward from its start location.
 
-__Parameters__
+####Parameters
 
-`xRange` &mdash; integer: is the distance across the x-axis the object will travel.
+`xRange` &mdash; **integer:** is the distance across the x-axis the object will travel.
 
-`yRange` &mdash; integer: is the distance across the y-axis the object will travel.
+`yRange` &mdash; **integer:** is the distance across the y-axis the object will travel.
 
-`invert` &mdash; boolean: (optional) inverting will invert the direction the object will travel across each axis.*
+`invert` &mdash; **boolean:** *(optional)* inverting will invert the direction the object will travel across each axis.*
 
 \* The same effect can be achieved by providing `xRange` and `yRange` with negative numbers, making it possible to invert only a single axis.
 
@@ -83,30 +83,30 @@ __Parameters__
 
 Enable parallaxing.
 
-__Parameters__
+####Parameters
 
-`activityTarget` &mdash; Object: (optional) sets a specific DOM element over which Plax will track the mouse.
+`activityTarget` &mdash; **Object:** *(optional)* sets a specific DOM element over which Plax will track the mouse.
 
-`gyroRange` &mdash; Integer / Float: (optional) sets the degrees of tilt needed to reach full movement in one direction, from the center position. For the full range, two times the degrees tilt is needed. Default value: 30.
+`gyroRange` &mdash; **Integer / Float:** *(optional)* sets the degrees of tilt needed to reach full movement in one direction, from the center position. For the full range, two times the degrees tilt is needed. Default value: 30.
 
 ### disable()
 
 Disable parallaxing.
 
-__Parameters__
+####Parameters
 
-`restorePositions` &mdash; Boolean: (optional) resets all previously defined layers to their original positions when plax is deactivated. 
+`restorePositions` &mdash; **Boolean:** *(optional)* resets all previously defined layers to their original positions when plax is deactivated. 
 
-`clearLayers` &mdash; Boolean: (optional) clears all previously defined layers when disabling.
+`clearLayers` &mdash; **Boolean:** *(optional)* clears all previously defined layers when disabling.
 
 
 ## Best Practices
 
-- Items should be absolutely positioned, with top: and left: values specified.
+- Items should be `absolutely: positioned;`, with `top:` and `left:` values specified.
 
 - If you plan to parallax a background plane, be sure to give it enough extra "bleed" room so the image stays behind it's frame at all times. Usually your bleed on one side should be equal to half the range you give it, though you can give it more if you are paranoid.
 
-- For more realistic parallaxing (see "how to do the math" below), pick a "anchor object". Base your ranges for each object on the anchor object's range, getting exponentially larger the farther it is supposed to be from the anchor object. For example, an object close to your anchor object might have 2x its range, while an object really far away may have 5x as big a range.
+- For more realistic parallaxing (see "how to do the math" below), pick an "anchor object". Base your ranges for each object on the anchor object's range, getting exponentially larger the farther it is supposed to be from the anchor object. For example, an object close to your anchor object might have 2x its range, while an object really far away may have 5x as big a range.
 
 - Objects that appear behind the anchor object should have `invert` set to true.
 
@@ -117,20 +117,20 @@ Here are a couple real-life examples of parallaxing and a quick description of h
 
 ### Example #1
 
-Picture driving down the highway. There are three objects: You, in the inside lane, a truck in the outside lane, and a sign on the side of the road. As you drive past the truck, the sign always manages to stay just out of view behind the it.
+Picture driving down the highway. There are three objects: You, in the inside lane, a truck in the outside lane, and a sign on the side of the road. As you drive past the truck, the sign always manages to stay just out of view behind the truck.
 
-__The lesson__
+####The lesson
 
-In this case, the truck becomes the "anchor", as it stays relatively still. It is the item upon which all the movement is based. If you were to recreate this scenario in your javascript, the truck would have a small range, say 10&ndash;20 pixels. That way, it would move a little, but not too much. Since the car you are in is moving faster relative to the truck so it would need a larger range like 50&ndash;100 pixels. Finally, the sign, since it is "behind" the truck, will need to have `invert` set to true. Any object behind the "anchor" object should be inverted. Assuming the sign is always about the same distance from the truck as you are (the scenario where you never actually see the sign) then its range should also be around 50&ndash;100 pixels.
+In this case, the truck becomes the "anchor", as it stays relatively still. It is the item upon which all the movement is based. If you were to recreate this scenario in your javascript, the truck would have a small range, say 10&ndash;20 pixels. That way, it would move a little, but not too much. Since the car you are in is moving faster relative to the truck it would need a larger range like 50&ndash;100 pixels. Finally, the sign, since it is "behind" the truck, will need to have `invert` set to true. Any object behind the "anchor" object should be inverted. Assuming the sign is always about the same distance from the truck as you are (the scenario where you never actually see the sign) then its range should also be around 50&ndash;100 pixels.
 
 
 ### Example #2
 
-Picture another scenario driving scenario. You're the passenger in a car driving past a barn. In the distance you can see mountains. If you look at the grass on the side of the road, it seems to be flying by at blazing speed. If you look at the barn, it still appears to be passing by, but much more slowly than the grass. If you look to the mountains in the distance, they pretty much seem to be staying where they are at.
+Picture another driving scenario. You're the passenger in a car driving past a barn. In the distance you can see mountains. If you look at the grass on the side of the road, it seems to be flying by at blazing speed. If you look at the barn, it still appears to be passing by, but much more slowly than the grass. If you look to the mountains in the distance, they pretty much seem to be staying where they are at.
 
 __The lesson__
 
-The principals from the previous scenario are still present in this situation, only the anchor has moved to the back layer. Since the mountains are far of in the distance and barely moving, they get a range of 5&ndash;10 pixels. Each layer as it comes forward should have a greater range than the layer before it. The barn would probably have 20&ndash;30 pixels of range and the grass near the road would probably have 100 pixels of range.
+The principals from the previous scenario are still present in this situation, only the anchor has moved to the back layer (the mountains). Since the mountains are far off in the distance and barely moving, they get a range of 5&ndash;10 pixels. Each layer as it comes forward should have a greater range than the layer before it. The barn would probably have 20&ndash;30 pixels of range and the grass near the road would probably have 100 pixels of range.
 
 
 ## Future plans for Plax
