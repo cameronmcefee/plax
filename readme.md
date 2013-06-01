@@ -102,7 +102,7 @@ Disable parallaxing.
 
 ## Best Practices
 
-- Items should be `absolutely: positioned;`, with `top:` and `left:` values specified.
+- Items should be absolutely positioned, with `top:` and `left:` values specified.
 
 - If you plan to parallax a background plane, be sure to give it enough extra "bleed" room so the image stays behind it's frame at all times. Usually your bleed on one side should be equal to half the range you give it, though you can give it more if you are paranoid.
 
