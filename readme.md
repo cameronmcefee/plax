@@ -3,7 +3,7 @@ Plax is a [jQuery](http://jquery.com) plugin that makes it suuuuuper easy to par
 
 ## Dependencies
 
-**[jQuery](http://jquery.com/)
+**[jQuery](http://jquery.com/)**
 
 
 ## Usage
