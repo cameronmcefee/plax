@@ -8,7 +8,7 @@ Plax is a [jQuery](http://jquery.com) plugin that makes it suuuuuper easy to par
 
 ## Usage
 
-**[Plax Demo](http://www.cameronmcefee.com/plax-demo)**
+**[Plax Demo](http://projects.cameronmcefee.com/plax-demo)**
 
 In the &lt;head&gt; of your document, link both jQuery and plax.
 
