@@ -262,4 +262,4 @@
 
 })(function () {
   return typeof jQuery !== 'undefined' ? jQuery : ender
-}())
+}());
