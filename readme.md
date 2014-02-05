@@ -1,3 +1,5 @@
+# Plax
+
 Plax is a [jQuery](http://jquery.com) plugin that makes it suuuuuper easy to parallax elements in your site based on mouse position. You can see it implemented in many places throughout GitHub, including the [404 page](http://www.github.com/404), the [500 page](http://www.github.com/500), and the [about page](http://www.github.com/about). I've also used a modified version to [parallax a URL](http://projects.cameronmcefee.com/parallax-url).
 
 
