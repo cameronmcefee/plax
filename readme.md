@@ -80,6 +80,11 @@ Add an item to the list of parallaxing layers. Ranges are centered at the items 
 
 \* The same effect can be achieved by providing `xRange` and `yRange` with negative numbers, making it possible to invert only a single axis.
 
+`useTransform` &mdash; **boolean:** *(optional)* defaults &ndash true. When supported translate3d will be used rather than `top` and `left`*
+
+`plaxActivityTargetFixedPos` &mdash; **boolean:** *(optional)* defaults &ndash false. When your layers are fixed, or contained in a fixed element. Maintains their response to mouse movement following page scroll*
+
+
 ### enable()
 
 Enable parallaxing.
