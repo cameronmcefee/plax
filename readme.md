@@ -82,8 +82,6 @@ Add an item to the list of parallaxing layers. Ranges are centered at the items 
 
 `useTransform` &mdash; **boolean:** *(optional)* defaults - true. When supported translate3d will be used rather than `top` and `left`*
 
-`plaxActivityTargetFixedPos` &mdash; **boolean:** *(optional)* defaults - false. When your layers are fixed, or contained in a fixed element. Maintains their response to mouse movement following page scroll*
-
 
 ### enable()
 
