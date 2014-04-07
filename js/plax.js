@@ -36,7 +36,7 @@
       motionStartX       		   = null,
       motionStartY       		   = null,
       ignoreMoveable     		   = false,
-  	  options					   = null
+      options				   = null
   	  
   var defaults = { 
     useTransform				   : true
@@ -95,7 +95,6 @@
       } else {
 
         // Figure out where the element is positioned, then reposition it from the top/left, same for transform if using translate3d
-        //console.log(get3dTranslation(layer.obj));
         var position           = layer.obj.position(),
             transformTranslate = get3dTranslation(layer.obj);
             
