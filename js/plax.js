@@ -25,30 +25,30 @@
 
 (function ($) {
 
-  var maxfps             		   = 25,
-      delay              		   = 1 / maxfps * 1000,
-      lastRender         		   = new Date().getTime(),
-      layers             		   = [],
-      plaxActivityTarget 		   = $(window),
-      motionDegrees      		   = 30,
-      motionMax          		   = 1,
-      motionMin          		   = -1,
-      motionStartX       		   = null,
-      motionStartY       		   = null,
-      ignoreMoveable     		   = false,
-      options				   = null
-  	  
-  var defaults = { 
-    useTransform				   : true
+  var maxfps             = 25,
+      delay              = 1 / maxfps * 1000,
+      lastRender         = new Date().getTime(),
+      layers             = [],
+      plaxActivityTarget = $(window),
+      motionDegrees      = 30,
+      motionMax          = 1,
+      motionMin          = -1,
+      motionStartX       = null,
+      motionStartY       = null,
+      ignoreMoveable     = false,
+      options            = null
+
+  var defaults = {
+    useTransform : true
   }
 
   // Public Methods
   $.fn.plaxify = function (params){
     options = $.extend({}, defaults, params);
     options.useTransform = (options.useTransform ? supports3dTransform() : false);
- 
-    return this.each(function () {    	
-    	
+
+    return this.each(function () {
+
       var layerExistsAt = -1
       var layer         = {
         "xRange": $(this).data('xrange') || 0,
@@ -91,13 +91,13 @@
         layer.transformOriginX = layer.transformStartX = 0
         layer.transformOriginY = layer.transformStartY = 0
         layer.transformOriginZ = layer.transformStartZ = 0
-      
+
       } else {
 
         // Figure out where the element is positioned, then reposition it from the top/left, same for transform if using translate3d
         var position           = layer.obj.position(),
             transformTranslate = get3dTranslation(layer.obj);
-            
+
         layer.obj.css({
           'transform' : transformTranslate.join() + 'px',
           'top'   : position.top,
@@ -109,25 +109,25 @@
         layer.originY = layer.startY = position.top
         layer.transformOriginX = layer.transformStartX = transformTranslate[0]
         layer.transformOriginY = layer.transformStartY = transformTranslate[1]
-        layer.transformOriginZ = layer.transformStartZ = transformTranslate[2]        
+        layer.transformOriginZ = layer.transformStartZ = transformTranslate[2]
       }
 
       layer.startX -= layer.inversionFactor * Math.floor(layer.xRange/2)
       layer.startY -= layer.inversionFactor * Math.floor(layer.yRange/2)
-      
+
       layer.transformStartX -= layer.inversionFactor * Math.floor(layer.xRange/2)
       layer.transformStartY -= layer.inversionFactor * Math.floor(layer.yRange/2)
       layer.transformStartZ -= layer.inversionFactor * Math.floor(layer.zRange/2)
-      
+
       if(layerExistsAt >= 0){
         layers.splice(layerExistsAt,1,layer)
       } else {
         layers.push(layer)
       }
-      
+
     })
   }
-  
+
   // Get the translate position of the element
   //
   // return 3 element array for translate3d
@@ -138,7 +138,7 @@
                     obj.css("-ms-transform")     ||
                     obj.css("-o-transform")      ||
                     obj.css("transform")
-                    
+
     if(matrix !== 'none') {
       var values = matrix.split('(')[1].split(')')[0].split(',');
       if(values.length == 16){
@@ -156,31 +156,31 @@
     }
     return translate
   }
-  
+
   // Check if element is in viewport area
   //
   // Returns boolean
   function inViewport(element) {
     if (element.offsetWidth === 0 || element.offsetHeight === 0) return false
-	
+
 	var height = document.documentElement.clientHeight,
 	    rects  = element.getClientRects()
-	    
+
 	for (var i = 0, l = rects.length; i < l; i++) {
-	 
+
 	  var r           = rects[i],
 	      in_viewport = r.top > 0 ? r.top <= height : (r.bottom > 0 && r.bottom <= height)
-	 
+
 	  if (in_viewport) return true
 	}
 	return false
   }
-  
+
   // Check support for 3dTransform
   //
   // Returns boolean
   function supports3dTransform() {
-    var el = document.createElement('p'), 
+    var el = document.createElement('p'),
         has3d,
         transforms = {
           'webkitTransform':'-webkit-transform',
@@ -239,8 +239,8 @@
     }
   }
 
-  // Move the elements in the `layers` array within their ranges, 
-  // based on mouse or motion input 
+  // Move the elements in the `layers` array within their ranges,
+  // based on mouse or motion input
   //
   // Parameters
   //
@@ -250,12 +250,12 @@
   function plaxifier(e) {
     if (new Date().getTime() < lastRender + delay) return
       lastRender = new Date().getTime()
-    
+
     var leftOffset = (plaxActivityTarget.offset() != null) ? plaxActivityTarget.offset().left : 0,
         topOffset  = (plaxActivityTarget.offset() != null) ? plaxActivityTarget.offset().top : 0,
         x          = e.pageX-leftOffset,
         y          = e.pageY-topOffset
-        
+
     if (!inViewport(layers[0].obj[0].parentNode)) return
 
     if(moveable()){
