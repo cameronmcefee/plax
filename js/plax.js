@@ -210,7 +210,7 @@
   //
   // returns true if the browser has window.DeviceMotionEvent (mobile)
   function moveable(){
-    return (ignoreMoveable==true) ? false : window.DeviceOrientationEvent != undefined;
+    return (ignoreMoveable===true) ? false : window.DeviceOrientationEvent !== undefined;
   }
 
   // The values pulled from the gyroscope of a motion device.
@@ -233,8 +233,8 @@
       y = -y;
     }
 
-    motionStartX = (motionStartX == null) ? x : motionStartX;
-    motionStartY = (motionStartY == null) ? y : motionStartY;
+    motionStartX = (motionStartX === null) ? x : motionStartX;
+    motionStartY = (motionStartY === null) ? y : motionStartY;
 
     return {
       x: x - motionStartX,
@@ -262,7 +262,7 @@
     if (!inViewport(layers[0].obj[0].parentNode)) return;
 
     if(moveable()){
-      if(e.gamma == undefined){
+      if(e.gamma === undefined){
         ignoreMoveable = true;
         return;
       }
@@ -279,8 +279,8 @@
       y = (y + 1) / 2;
     }
 
-    var hRatio = x/((moveable() == true) ? motionMax : plaxActivityTarget.width()),
-        vRatio = y/((moveable() == true) ? motionMax : plaxActivityTarget.height()),
+    var hRatio = x/((moveable() === true) ? motionMax : plaxActivityTarget.width()),
+        vRatio = y/((moveable() === true) ? motionMax : plaxActivityTarget.height()),
         layer, i;
 
     for (i = layers.length; i--;) {
