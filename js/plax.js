@@ -1,4 +1,4 @@
-/* Plax version 1.3.1 */
+/* Plax version 1.4.1 */
 
 /*
   Copyright (c) 2011 Cameron McEfee
