@@ -1,7 +1,7 @@
 {
     "name": "plax"
 		, "description": "javascript parallaxing"
-		, "version": "1.2.1"
+		, "version": "1.4.1"
 		, "homepage": "http://www.cameronmcefee.com/plax"
 		, "author": "Cameron McEfee"
 		, "main": "./js/plax.js"
