@@ -132,7 +132,7 @@
   //
   // return 3 element array for translate3d
   function get3dTranslation(obj) {
-  	var translate = [0,0,0],
+    var translate = [0,0,0],
         matrix    = obj.css("-webkit-transform") ||
                     obj.css("-moz-transform")    ||
                     obj.css("-ms-transform")     ||
@@ -164,14 +164,14 @@
     if (element.offsetWidth === 0 || element.offsetHeight === 0) return false;
 
 	var height = document.documentElement.clientHeight,
-	    rects  = element.getClientRects();
+      rects  = element.getClientRects();
 
 	for (var i = 0, l = rects.length; i < l; i++) {
 
-	  var r           = rects[i],
-	      in_viewport = r.top > 0 ? r.top <= height : (r.bottom > 0 && r.bottom <= height);
+    var r           = rects[i],
+        in_viewport = r.top > 0 ? r.top <= height : (r.bottom > 0 && r.bottom <= height);
 
-	  if (in_viewport) return true;
+    if (in_viewport) return true;
 	}
 	return false;
   }
@@ -283,15 +283,15 @@
     for (i = layers.length; i--;) {
       layer = layers[i];
       if(options.useTransform && !layer.background){
-      	newX = layer.transformStartX + layer.inversionFactor*(layer.xRange*hRatio);
-      	newY = layer.transformStartY + layer.inversionFactor*(layer.yRange*vRatio);
-      	newZ = layer.transformStartZ;
-      	layer.obj
+        newX = layer.transformStartX + layer.inversionFactor*(layer.xRange*hRatio);
+        newY = layer.transformStartY + layer.inversionFactor*(layer.yRange*vRatio);
+        newZ = layer.transformStartZ;
+        layer.obj
             .css({'transform':'translate3d('+newX+'px,'+newY+'px,'+newZ+'px)'});
       }else{
-      	newX = layer.startX + layer.inversionFactor*(layer.xRange*hRatio);
-      	newY = layer.startY + layer.inversionFactor*(layer.yRange*vRatio);
-      	if(layer.background) {
+        newX = layer.startX + layer.inversionFactor*(layer.xRange*hRatio);
+        newY = layer.startY + layer.inversionFactor*(layer.yRange*vRatio);
+        if(layer.background) {
           layer.obj
             .css('background-position', newX+'px '+newY+'px');
         } else {
@@ -351,7 +351,7 @@
         for(var i = layers.length; i--;) {
           layer = layers[i];
           if(options.useTransform && !layer.background){
-          	layer.obj
+            layer.obj
                 .css('transform', 'translate3d('+layer.transformOriginX+'px,'+layer.transformOriginY+'px,'+layer.transformOriginZ+'px)')
                 .css('top', layer.originY);
           }else{
