@@ -141,16 +141,19 @@
 
     if(matrix !== 'none') {
       var values = matrix.split('(')[1].split(')')[0].split(',');
+      var x = 0,
+          y = 0,
+          z = 0;
       if(values.length == 16){
         // 3d matrix
-        var x = (parseFloat(values[values.length - 4])),
-            y = (parseFloat(values[values.length - 3])),
-            z = (parseFloat(values[values.length - 2]))
+        x = (parseFloat(values[values.length - 4]));
+        y = (parseFloat(values[values.length - 3]));
+        z = (parseFloat(values[values.length - 2]));
       }else{
         // z is not transformed as is not a 3d matrix
-        var x = (parseFloat(values[values.length - 2])),
-            y = (parseFloat(values[values.length - 1])),
-            z = 0;
+        x = (parseFloat(values[values.length - 2]));
+        y = (parseFloat(values[values.length - 1]));
+        z = 0;
       }
       translate = [x,y,z];
     }
