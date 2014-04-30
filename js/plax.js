@@ -326,7 +326,7 @@
         if (typeof opts.gyroRange === 'number' && opts.gyroRange > 0) motionDegrees = opts.gyroRange;
       }
 
-      $(document).bind('mousemove.plax', function (e) {
+      plaxActivityTarget.bind('mousemove.plax', function (e) {
         plaxifier(e);
       });
 
