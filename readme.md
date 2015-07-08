@@ -1,3 +1,6 @@
+**Plax is on the backburner and is provided as-is. I won't be adding bug fixes or future improvements at this time. Plax is old enough that there are [better options available](https://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=jquery%20parallax%20plugin) so go forth an parallax!**
+
+
 # Plax
 
 Plax is a [jQuery](http://jquery.com) plugin that makes it suuuuuper easy to parallax elements in your site based on mouse position. You can see it implemented in many places throughout GitHub, including the [404 page](http://www.github.com/404), the [500 page](http://www.github.com/500), and the [about page](http://www.github.com/about). I've also used a modified version to [parallax a URL](http://projects.cameronmcefee.com/parallax-url).
@@ -135,12 +138,3 @@ Picture another driving scenario. You're the passenger in a car driving past a b
 __The lesson__
 
 The principals from the previous scenario are still present in this situation, only the anchor has moved to the back layer (the mountains). Since the mountains are far off in the distance and barely moving, they get a range of 5&ndash;10 pixels. Each layer as it comes forward should have a greater range than the layer before it. The barn would probably have 20&ndash;30 pixels of range and the grass near the road would probably have 100 pixels of range.
-
-
-## Future plans for Plax
-
-- __Automatic plaxing:__ Specify an array of elements and let Plax figure out how to move then around.
-
-- __Smarter Plaxing:__ Right now Plax assumes your items are absolutely positioned. In the future I'd like to have Plax convert the current positioning scheme to what it needs, allowing initially relatively positioned elements.
-
-- __plaxTo()__ It'd be cool if you could give Plax a percentage to parallax to. This would allow for more than just the mouse as the source of input.
