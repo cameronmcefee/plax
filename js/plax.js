@@ -29,7 +29,7 @@
       delay              = 1 / maxfps * 1000,
       lastRender         = new Date().getTime(),
       layers             = [],
-      plaxActivityTarget = $(window),
+      plaxActivityTarget = {},
       motionDegrees      = 30,
       motionMax          = 1,
       motionMin          = -1,
@@ -322,8 +322,10 @@
     // returns nothing
     enable: function(opts){
       if (opts) {
-        if (opts.activityTarget) plaxActivityTarget = opts.activityTarget || $(window);
+        if (opts.activityTarget) plaxActivityTarget = opts.activityTarget || $(document.body);
         if (typeof opts.gyroRange === 'number' && opts.gyroRange > 0) motionDegrees = opts.gyroRange;
+      } else {
+        plaxActivityTarget = $(document.body);
       }
 
       plaxActivityTarget.bind('mousemove.plax', function (e) {
