@@ -73,7 +73,7 @@ $('#my-btn').click(function(){
 
 Add an item to the list of parallaxing layers. Ranges are centered at the items start location. For example, an item with a 20px range will be able to move 10px forward and 10px backward from its start location.
 
-####Parameters
+#### Parameters
 
 `xRange` &mdash; **integer:** is the distance across the x-axis the object will travel.
 
@@ -90,7 +90,7 @@ Add an item to the list of parallaxing layers. Ranges are centered at the items 
 
 Enable parallaxing.
 
-####Parameters
+#### Parameters
 
 `activityTarget` &mdash; **Object:** *(optional)* sets a specific DOM element over which Plax will track the mouse.
 
@@ -100,7 +100,7 @@ Enable parallaxing.
 
 Disable parallaxing.
 
-####Parameters
+#### Parameters
 
 `restorePositions` &mdash; **Boolean:** *(optional)* resets all previously defined layers to their original positions when plax is deactivated. 
 
@@ -126,7 +126,7 @@ Here are a couple real-life examples of parallaxing and a quick description of h
 
 Picture driving down the highway. There are three objects: You, in the inside lane, a truck in the outside lane, and a sign on the side of the road. As you drive past the truck, the sign always manages to stay just out of view behind the truck.
 
-####The lesson
+#### The lesson
 
 In this case, the truck becomes the "anchor", as it stays relatively still. It is the item upon which all the movement is based. If you were to recreate this scenario in your javascript, the truck would have a small range, say 10&ndash;20 pixels. That way, it would move a little, but not too much. Since the car you are in is moving faster relative to the truck it would need a larger range like 50&ndash;100 pixels. Finally, the sign, since it is "behind" the truck, will need to have `invert` set to true. Any object behind the "anchor" object should be inverted. Assuming the sign is always about the same distance from the truck as you are (the scenario where you never actually see the sign) then its range should also be around 50&ndash;100 pixels.
 
