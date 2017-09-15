@@ -1,4 +1,4 @@
-**Plax is on the backburner and is provided as-is. I won't be adding bug fixes or future improvements at this time. Plax is old enough that there are [better options available](https://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=jquery%20parallax%20plugin) so go forth an parallax!**
+**Plax is on the backburner and is provided as-is. I won't be adding bug fixes or future improvements at this time. Plax is old enough that there are [better options available](https://www.google.com/search?q=jquery+parallax+plugin) so go forth an parallax!**
 
 
 # Plax
